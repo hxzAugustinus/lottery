@@ -15,7 +15,7 @@ const routes = [
     name: "home",
     component: Home,
     meta: {
-      title: "开心抽奖"
+      title: "鼠年行大运，奖品抽不停"
     }
   },
   {
