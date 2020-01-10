@@ -9,27 +9,39 @@
 
 <template>
   <div class="chartNum">
-    <div class="box-item">
+    <img src="@/images/lotteryBox.png" alt />
+    <div class="box-item" v-if="show">
       <li class="number-item" v-for="(item, index) in orderNum" :key="index">
         <span>
           <i ref="numberItem">01234567890123456789</i>
         </span>
       </li>
     </div>
+    <div class="redp-item" v-else>
+      <li class="redpacet" v-for="(item, index) in 6" :key="index">
+        <img src="@/images/redPakect.png" />
+      </li>
+    </div>
+    <p>1月8日10:00 自动开奖</p>
+    <img
+      :src=" acticon ?  require('@/images/drawBtnactive.png') :  require('@/images/drawBtn.png')"
+      alt
+      @click="drawaction"
+    />
+    <p>已有11838人参与</p>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      orderNum: ["0", "0", "0", "0", "0", "0"] // 默认订单总数
+      orderNum: ["0", "0", "0", "0", "0", "0"], // 默认订单总数
+      imgBtn: require("@/images/drawBtn.png"),
+      acticon: false,
+      show: false
     };
   },
-  mounted() {
-    setTimeout(() => {
-      this.toOrderNum(445034); // 这里输入数字即可调用
-    }, 500);
-  },
+  mounted() {},
   methods: {
     // 设置文字滚动
     setNumberTransform() {
@@ -56,21 +68,76 @@ export default {
         //this.$message.warning("总量数字过大");
       }
       this.setNumberTransform();
+    },
+    drawaction() {
+      if (this.acticon) return;
+      this.$emit("close-modal");
+      this.acticon = true;
+      this.show = true;
+      setTimeout(() => {
+        this.toOrderNum(445034); // 这里输入数字即可调用
+        this.acticon = false;
+      }, 200);
     }
   }
 };
 </script>
 <style scoped lang="scss">
+.chartNum {
+  margin-top: 20px;
+  width: 100%;
+  height: 409px;
+  position: relative;
+  overflow: initial;
+  padding-top: 94px;
+  box-sizing: border-box;
+  img:nth-child(1) {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+  img:nth-child(4) {
+    width: calc(100% - 25px);
+    height: 85px;
+    position: relative;
+    z-index: 5;
+  }
+  p:nth-child(3) {
+    display: inline-block;
+    padding: 0 22px;
+    height: 34px;
+    background: rgba(226, 152, 0, 1);
+    border-radius: 17px;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    position: relative;
+    z-index: 5;
+    line-height: 34px;
+    margin: 60px 0 15px 0;
+  }
+  p:last-child {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(183, 63, 0, 1);
+    position: relative;
+    z-index: 5;
+    margin: 0;
+  }
+}
 /*订单总量滚动数字设置*/
 .box-item {
-  position: relative;
-  height: 100px;
-
-  font-size: 54px;
+  margin: 0 auto;
+  width: calc(100% - 45px);
+  height: 77px;
+  font-size: 55px;
   line-height: 41px;
   text-align: center;
   list-style: none;
-  color: #2d7cff;
+  color: rgba(242, 19, 28, 1);
   writing-mode: vertical-lr;
   text-orientation: upright;
   /*文字禁止编辑*/
@@ -79,40 +146,67 @@ export default {
   -ms-user-select: none; /*IE10*/
   -khtml-user-select: none; /*早期浏览器*/
   user-select: none;
-  /* overflow: hidden; */
-}
-/*滚动数字设置*/
-.number-item {
-  width: 41px;
-  height: 75px;
-  /* 背景图片 */
-  background: url(~@/assets/num_bg.png) no-repeat center center;
-  background-size: 100% 100%;
-  list-style: none;
-  margin-right: 5px;
-  border-radius: 4px;
-  border: 1px solid rgba(221, 221, 221, 1);
-  & > span {
-    position: relative;
-    display: inline-block;
-    margin-right: 10px;
-    width: 100%;
+  display: flex;
+  display: -webkit-box;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  /*滚动数字设置*/
+  .number-item {
+    flex: 1;
     height: 100%;
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    overflow: hidden;
-    & > i {
-      font-style: normal;
-      position: absolute;
-      top: 11px;
-      left: 50%;
-      transform: translate(-50%, 0);
-      transition: transform 1s ease-in-out;
-      letter-spacing: 10px;
+    list-style: none;
+    margin-right: 5px;
+    & > span {
+      position: relative;
+      display: inline-block;
+      margin-right: 10px;
+      width: 100%;
+      height: 100%;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      overflow: hidden;
+      & > i {
+        font-style: normal;
+        position: absolute;
+        top: 11px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        transition: transform 1s ease-in-out;
+        letter-spacing: 10px;
+      }
     }
   }
+  .number-item:last-child {
+    margin-right: 0;
+  }
 }
-.number-item:last-child {
-  margin-right: 0;
+.redp-item {
+  margin: 0 auto;
+  width: calc(100% - 38px);
+  height: 77px;
+  text-align: center;
+  display: flex;
+  list-style: none;
+  display: -webkit-box;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  .redpacet {
+    flex: 1;
+    margin: 0;
+    margin-right: 6px;
+    margin-left: 6px;
+    line-height: 122px;
+    img {
+      width: 100%;
+      height: 46px;
+      position: relative;
+    }
+  }
 }
 </style>
