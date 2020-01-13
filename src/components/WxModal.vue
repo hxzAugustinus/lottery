@@ -63,8 +63,8 @@ p {
 }
 .van-button {
   width: 100%;
-  height:44px;
-  background:rgba(240,24,24,1);
-  border-radius:3px;
+  height: 44px;
+  background: rgba(240,24,24,1);
+  border-radius: 3px;
 }
 </style>

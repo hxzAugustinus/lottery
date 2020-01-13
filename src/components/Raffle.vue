@@ -91,6 +91,9 @@ export default {
   overflow: initial;
   padding-top: 94px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   img:nth-child(1) {
     width: 100%;
     height: 100%;
@@ -117,7 +120,7 @@ export default {
     position: relative;
     z-index: 5;
     line-height: 34px;
-    margin: 60px 0 15px 0;
+    margin: 60px auto 15px auto;
   }
   p:last-child {
     font-size: 16px;
