@@ -5,12 +5,12 @@
       <p>等待开奖</p>
       <p>
         <img src="@/images/person.png" alt />
-        11838
+        {{joinperson / 10000 > 1 ? (joinperson / 10000).toFixed(1) + "W" : joinperson }}
       </p>
     </div>
     <div class="DrawMsg-num">
       <p>我的兑奖码</p>
-      <p>237890</p>
+      <p>{{drawCode}}</p>
     </div>
     <p class="DrawMsg-content">每邀请一位新用户，注册【网上老年大学】，可以增加5%获奖概率哦～（每个商品限4个。</p>
     <div class="invatepeple" v-if="imgList.length > 0">
@@ -28,6 +28,12 @@ export default {
   props: {
     imgList: {
       type: Array
+    },
+    drawCode: {
+      type: Number
+    },
+    joinperson: {
+      type: Number
     }
   },
   data() {

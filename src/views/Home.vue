@@ -9,8 +9,8 @@
     <router-link :to="{ name: 'profile' }" class="user"></router-link>
     <div class="contariner">
       <award></award>
-      <Raffle @close-modal="closeModal" :drawFirst="drawFirst" @showMsg="showmsg" v-if="showMsg"></Raffle>
-      <DrawMsg v-else :imgList="imgList" @showOverlay="showoverlay"></DrawMsg>
+      <Raffle @close-modal="closeModal" :drawFirst="drawFirst" @showMsg="showmsg" :drawCode='drawCode' v-if="showMsg"></Raffle>
+      <Waitedraw v-else :imgList="imgList" :drawCode="drawCode" :joinperson='joinperson' @showOverlay="showoverlay"></Waitedraw>
       <div class="prizeBox">
         <p>图文详情</p>
         <div v-html="content" class="content"></div>
@@ -25,15 +25,17 @@
 import Award from "@/components/Award";
 import Raffle from "@/components/Raffle.vue";
 import WxModal from "@/components/WxModal.vue";
-import DrawMsg from "@/components/DrawMsg.vue";
+import Waitedraw from "@/components/Waitedraw.vue";
 import Overlay from "@/components/Overlay.vue";
 export default {
   name: "home",
   data() {
     return {
+      drawCode: 996038,
+      joinperson: 113856,
       showModel: false,
       drawFirst: true,
-      showMsg: false,
+      showMsg: true,
       showOverlay:false,
       content:
         "手里接过获得胜利后但是立刻脚后跟流口水的韩国快乐圣诞节和可见光和领导萨克结果回来开始的就会过来看是的结果后来开始的结果后来看到世界观和是扩大解放韩国离开但是结果很快的时间后来开始电话发给来看待世界富豪",
@@ -44,7 +46,7 @@ export default {
     Award,
     Raffle,
     WxModal,
-    DrawMsg,
+    Waitedraw,
     Overlay
   },
   mounted() {},

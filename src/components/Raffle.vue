@@ -37,6 +37,9 @@ export default {
     drawFirst: {
       type: Boolean,
       default: false
+    },
+    drawCode: {
+      type:Number
     }
   },
   data() {
@@ -82,7 +85,7 @@ export default {
       this.acticon = true;
       this.showNum = true;
       setTimeout(() => {
-        this.toOrderNum(445034); // 这里输入数字即可调用
+        this.toOrderNum(this.drawCode); // 这里输入数字即可调用
         this.acticon = false;
       }, 200);
       this.$emit("showMsg");
