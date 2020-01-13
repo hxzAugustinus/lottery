@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-01-09 10:39:39
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-10 13:57:15
+ * @LastEditTime : 2020-01-13 18:17:21
  */
 import Vue from "vue";
 import "./plugins/axios";
@@ -13,10 +13,11 @@ import utils from "@/utils/utils.js";
 Vue.prototype.$wx = wx;
 Vue.prototype.$utils = utils;
 
-import { Tab, Tabs, Button, Dialog } from "vant";
+import { Tab, Tabs, Button, Loading, Dialog } from "vant";
 Vue.use(Tab)
   .use(Tabs)
   .use(Button)
+  .use(Loading)
   .use(Dialog);
 
 import VueClipboard from "vue-clipboard2";
