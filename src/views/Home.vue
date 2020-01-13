@@ -9,14 +9,40 @@
     <router-link :to="{ name: 'profile' }" class="user"></router-link>
     <div class="contariner">
       <award></award>
-      <Raffle @close-modal="closeModal" :drawFirst="drawFirst" @showMsg="showmsg" :drawCode='drawCode' v-if="showMsg"></Raffle>
-      <Waitedraw v-else :imgList="imgList" :drawCode="drawCode" :joinperson='joinperson' @showOverlay="showoverlay"></Waitedraw>
+      <Raffle
+        @close-modal="closeModal"
+        :drawFirst="drawFirst"
+        @showMsg="showmsg"
+        :drawCode="drawCode"
+        v-if="showDraw"
+      ></Raffle>
+      <Waitedraw
+        v-if="showMsg"
+        :imgList="imgList"
+        :drawCode="drawCode"
+        :joinperson="joinperson"
+        @showOverlay="showoverlay"
+      ></Waitedraw>
+      <Winlottery
+        v-if="showWin"
+        :winperson="winperson"
+        :drawCode="drawCode"
+        :joinperson="joinperson"
+        @showmodel="showmodel"
+      ></Winlottery>
+      <Loselottery
+        v-if="showLose"
+        :winperson="winperson"
+        :drawCode="drawCode"
+        :joinperson="joinperson"
+        @showmodel="showmodel"
+      ></Loselottery>
       <div class="prizeBox">
         <p>图文详情</p>
         <div v-html="content" class="content"></div>
       </div>
     </div>
-    <wx-modal :showModel="showModel" @close-modal="closeModal" :drawFirst="drawFirst"></wx-modal>
+    <wx-modal :showModel="showModel" @showmodel="showmodel"></wx-modal>
     <Overlay :Overlay="showOverlay" @showOverlay="showoverlay"></Overlay>
   </div>
 </template>
@@ -27,6 +53,9 @@ import Raffle from "@/components/Raffle.vue";
 import WxModal from "@/components/WxModal.vue";
 import Waitedraw from "@/components/Waitedraw.vue";
 import Overlay from "@/components/Overlay.vue";
+import Winlottery from "@/components/Winlottery.vue";
+import Loselottery from "@/components/Loselottery.vue";
+
 export default {
   name: "home",
   data() {
@@ -35,11 +64,19 @@ export default {
       joinperson: 113856,
       showModel: false,
       drawFirst: true,
-      showMsg: true,
-      showOverlay:false,
+      showDraw: false,
+      showMsg: false,
+      showWin: false,
+      showLose: true,
+      showOverlay: false,
       content:
         "手里接过获得胜利后但是立刻脚后跟流口水的韩国快乐圣诞节和可见光和领导萨克结果回来开始的就会过来看是的结果后来开始的结果后来看到世界观和是扩大解放韩国离开但是结果很快的时间后来开始电话发给来看待世界富豪",
-      imgList: [require("@/images/userimg.png"), "", ""]
+      imgList: [require("@/images/userimg.png"), "", ""],
+      winperson: {
+        avatar: require("@/images/userimg.png"),
+        name: "是客服打",
+        drawCode: "234567"
+      }
     };
   },
   components: {
@@ -47,21 +84,46 @@ export default {
     Raffle,
     WxModal,
     Waitedraw,
-    Overlay
+    Overlay,
+    Winlottery,
+    Loselottery
   },
-  mounted() {},
+  mounted() {
+    let winperson = {
+        avatar: require("@/images/userimg.png"),
+        name: "是撒旦飞洒地方客",
+        drawCode: "234567"
+      },
+      num = "";
+    if (winperson.name.length - 2 > 0) {
+      for (let i = 0; i < winperson.name.length - 2; i++) {
+        num = num + "*";
+      }
+      winperson.name =
+        winperson.name.substring(0, 1) +
+        num +
+        winperson.name.substring(winperson.name.length - 1);
+    } else {
+      winperson.name = winperson.name.substring(0, 1) + "*";
+    }
+    this.winperson = winperson;
+  },
   methods: {
     closeModal() {
       if (!this.drawFirst) {
         return;
       } else {
-        this.showModel ? (this.showModel = false) : (this.showModel = true);
+        this.showModel = true;
         this.drawFirst = false;
       }
     },
+    showmodel(val) {
+      this.showModel = val;
+    },
     showmsg() {
       setTimeout(() => {
-        this.showMsg = false;
+        this.showDraw = false;
+        this.showMsg = true;
         this.showModel = false;
       }, 3000);
     },

@@ -5,7 +5,7 @@
  -->
 <template>
   <van-dialog
-    v-model="showModel"
+    v-model="showmodel"
     title="温馨提示"
     :showConfirmButton="showConfirmButton"
     closeOnClickOverlay
@@ -26,12 +26,22 @@
 </template>
 
 <script>
-import { Toast } from 'vant';
+import { Toast } from "vant";
 export default {
   props: {
     showModel: {
       type: Boolean,
       default: false
+    }
+  },
+  computed: {
+    showmodel: {
+      get() {
+        return this.showModel;
+      },
+      set(val) {
+        this.$emit("showmodel", val);
+      }
     }
   },
   data() {
@@ -43,8 +53,9 @@ export default {
   methods: {
     onCopy() {
       console.log("copy success");
-      // this.$emit("close-modal");
-      Toast.success('复制成功');
+      // this.$emit("showmodel");
+      this.showmodel = false;
+      Toast.success("复制成功");
     }
   }
 };
@@ -66,7 +77,7 @@ p {
 .van-button {
   width: 100%;
   height: 44px;
-  background: rgba(240,24,24,1);
+  background: rgba(240, 24, 24, 1);
   border-radius: 3px;
 }
 </style>

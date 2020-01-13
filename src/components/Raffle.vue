@@ -39,7 +39,7 @@ export default {
       default: false
     },
     drawCode: {
-      type:Number
+      type: Number
     }
   },
   data() {
@@ -81,7 +81,7 @@ export default {
     drawaction() {
       if (this.acticon) return;
       this.$emit("close-modal");
-      if(this.drawFirst) return
+      if (this.drawFirst) return;
       this.acticon = true;
       this.showNum = true;
       setTimeout(() => {
@@ -100,7 +100,7 @@ export default {
   height: 409px;
   position: relative;
   overflow: initial;
-  padding-top: 94px;
+  padding-top: 96px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -218,7 +218,7 @@ export default {
     line-height: 122px;
     img {
       width: 100%;
-      height: 46px;
+      height: auto;
       position: relative;
     }
   }
