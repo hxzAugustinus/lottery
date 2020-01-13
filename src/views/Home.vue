@@ -6,7 +6,10 @@
 <template>
   <div class="home">
     <img class="bg" src="@/images/homeBg.png" />
-    <router-link :to="{ name: 'profile' }" class="user"></router-link>
+    <div class="user">
+      <router-link :to="{ name: 'profile' }" class="router"></router-link>
+      <span></span>
+    </div>
     <div class="contariner">
       <award></award>
       <Raffle
@@ -153,16 +156,30 @@ export default {
     z-index: 0;
   }
   .user {
-    width: 72px;
-    height: 72px;
+    width: 74px;
+    height: 71px;
     background: url(~@/images/userBtn.png) no-repeat;
     background-size: 100% 100%;
-    border-radius: 50%;
     display: block;
     position: fixed;
     bottom: 100px;
     right: 9px;
     z-index: 1000;
+    .router {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    span {
+      display: block;
+      width: 73px;
+      height: 22px;
+      // background:rgba(193,0,0,1);
+      box-shadow: 0px 4px 12px 0px rgba(153, 0, 0, 0.6);
+      border-radius: 3px;
+      position: absolute;
+      bottom: 0;
+    }
   }
   .contariner {
     width: 100%;

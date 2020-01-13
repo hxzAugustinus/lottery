@@ -2,7 +2,7 @@
   <div class="DrawMsg">
     <p class="DrawMsg-title">抽奖信息</p>
     <div class="DrawMsg-conTitle">
-      <p>恭喜，你已中奖！</p>
+      <p>很遗憾，你未中奖！</p>
       <p>
         <img src="@/images/person.png" alt />
         {{joinperson / 10000 > 1 ? (joinperson / 10000).toFixed(1) + "W" : joinperson }}
@@ -12,10 +12,13 @@
       <p>我的兑奖码</p>
       <p>{{drawCode}}</p>
     </div>
-    <p class="DrawMsg-content">奖品：日本资深堂美润护手霜100gX1</p>
-    <div class="btnBox">
-      <p @click="closeModal">去领取</p>
-      <p>炫耀一下</p>
+    <p class="DrawMsg-content">为您准备了如下福利</p>
+    <div class="nextLottery">
+      <img src="@/images/hai.jpg" alt />
+      <div class="nextLottery-content">
+        <p>奖品：日本资深堂美润护手霜100gX1</p>
+        <p>1月16日10:00开始抽奖</p>
+      </div>
     </div>
     <div class="winperson">
       <h1>中奖名单</h1>
@@ -83,7 +86,7 @@ export default {
     p:nth-child(1) {
       font-size: 20px;
       font-weight: 600;
-      color: rgba(222, 32, 32, 1);
+      color: rgba(51, 51, 51, 1);
     }
     p:nth-child(2) {
       padding: 2px 10px;
@@ -128,28 +131,45 @@ export default {
     color: rgba(51, 51, 51, 1);
     margin: 9px 0 15px 0;
   }
-  .btnBox {
+  .nextLottery {
+    margin: 6px 0;
+    height: 100px;
     display: flex;
-    align-items: center;
-    p {
-      flex: 1;
-      margin: 0;
-      height: 64px;
-      padding-left: 20px;
-      box-sizing: border-box;
-      line-height: 64px;
-      font-size: 18px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 1);
-    }
-    p:nth-child(1) {
-      background: url(~@/images/donw.png) no-repeat;
-      background-size: 100% 100%;
+    img {
+      width: 133px;
+      height: auto;
+      display: block;
       margin-right: 15px;
     }
-    p:nth-child(2) {
-      background: url(~@/images/share.png) no-repeat;
-      background-size: 100% 100%;
+    .nextLottery-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        margin: 0;
+      }
+      p:nth-child(1) {
+        font-size: 18px;
+        font-weight: 500;
+        color: rgba(51, 51, 51, 1);
+        line-height: 29px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+      p:nth-child(2) {
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 1);
+        background: rgba(223, 32, 32, 1);
+        border-radius: 3px;
+      }
     }
   }
   .winperson {
