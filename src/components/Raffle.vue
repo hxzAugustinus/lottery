@@ -10,7 +10,7 @@
 <template>
   <div class="chartNum">
     <img src="@/images/lotteryBox.png" alt />
-    <div class="box-item" v-if="show">
+    <div class="box-item" v-if="showNum">
       <li class="number-item" v-for="(item, index) in orderNum" :key="index">
         <span>
           <i ref="numberItem">01234567890123456789</i>
@@ -33,12 +33,18 @@
 </template>
 <script>
 export default {
+  props: {
+    drawFirst: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       orderNum: ["0", "0", "0", "0", "0", "0"], // 默认订单总数
       imgBtn: require("@/images/drawBtn.png"),
       acticon: false,
-      show: false
+      showNum: false
     };
   },
   mounted() {},
@@ -72,8 +78,9 @@ export default {
     drawaction() {
       if (this.acticon) return;
       this.$emit("close-modal");
+      if(this.drawFirst) return
       this.acticon = true;
-      this.show = true;
+      this.showNum = true;
       setTimeout(() => {
         this.toOrderNum(445034); // 这里输入数字即可调用
         this.acticon = false;

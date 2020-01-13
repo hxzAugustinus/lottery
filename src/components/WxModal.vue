@@ -5,7 +5,7 @@
  -->
 <template>
   <van-dialog
-    v-model="show"
+    v-model="showModel"
     title="温馨提示"
     :showConfirmButton="showConfirmButton"
     closeOnClickOverlay
@@ -26,9 +26,10 @@
 </template>
 
 <script>
+import { Toast } from 'vant';
 export default {
   props: {
-    show: {
+    showModel: {
       type: Boolean,
       default: false
     }
@@ -42,7 +43,8 @@ export default {
   methods: {
     onCopy() {
       console.log("copy success");
-      this.$emit("close-modal");
+      // this.$emit("close-modal");
+      Toast.success('复制成功');
     }
   }
 };

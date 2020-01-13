@@ -9,13 +9,14 @@
     <router-link :to="{ name: 'profile' }" class="user"></router-link>
     <div class="contariner">
       <award></award>
-      <Raffle @close-modal="closeModal"></Raffle>
+      <Raffle @close-modal="closeModal" :drawFirst="drawFirst" v-if="showMsg"></Raffle>
+      <DrawMsg wx:else :imgList="imgList"></DrawMsg>
       <div class="prizeBox">
         <p>图文详情</p>
         <div v-html="content" class="content"></div>
       </div>
     </div>
-    <wx-modal :show="show" @close-modal="closeModal"></wx-modal>
+    <wx-modal :showModel="showModel" @close-modal="closeModal" :drawFirst="drawFirst"></wx-modal>
   </div>
 </template>
 
@@ -23,25 +24,35 @@
 import Award from "@/components/Award";
 import Raffle from "@/components/Raffle.vue";
 import WxModal from "@/components/WxModal.vue";
+import DrawMsg from "@/components/DrawMsg.vue";
 
 export default {
   name: "home",
   data() {
     return {
-      show: false,
+      showModel: false,
+      drawFirst: true,
+      showMsg: false,
       content:
-        "手里接过获得胜利后但是立刻脚后跟流口水的韩国快乐圣诞节和可见光和领导萨克结果回来开始的就会过来看是的结果后来开始的结果后来看到世界观和是扩大解放韩国离开但是结果很快的时间后来开始电话发给来看待世界富豪"
+        "手里接过获得胜利后但是立刻脚后跟流口水的韩国快乐圣诞节和可见光和领导萨克结果回来开始的就会过来看是的结果后来开始的结果后来看到世界观和是扩大解放韩国离开但是结果很快的时间后来开始电话发给来看待世界富豪",
+      imgList: [require("@/images/userimg.png"), "", "", ""]
     };
   },
   components: {
     Award,
     Raffle,
-    WxModal
+    WxModal,
+    DrawMsg
   },
   mounted() {},
   methods: {
     closeModal() {
-      this.show ? (this.show = false) : (this.show = true);
+      if (!this.drawFirst) {
+        return;
+      } else {
+        this.showModel ? (this.showModel = false) : (this.showModel = true);
+        this.drawFirst = false;
+      }
     }
   }
 };
@@ -116,7 +127,7 @@ export default {
   .van-dialog {
     padding: 0 27px 30px 27px;
     box-sizing: border-box;
-    border-radius:5px;
+    border-radius: 5px;
     .van-dialog__header {
       font-size: 20px;
       font-weight: 600;
