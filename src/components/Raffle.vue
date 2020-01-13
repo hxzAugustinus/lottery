@@ -85,6 +85,7 @@ export default {
         this.toOrderNum(445034); // 这里输入数字即可调用
         this.acticon = false;
       }, 200);
+      this.$emit("showMsg");
     }
   }
 };

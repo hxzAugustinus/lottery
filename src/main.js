@@ -13,11 +13,12 @@ import utils from "@/utils/utils.js";
 Vue.prototype.$wx = wx;
 Vue.prototype.$utils = utils;
 
-import { Tab, Tabs, Button, Dialog} from "vant";
+import { Tab, Tabs, Button, Dialog, Overlay} from "vant";
 Vue.use(Tab)
   .use(Tabs)
   .use(Button)
   .use(Dialog)
+  .use(Overlay)
 
 import VueClipboard from "vue-clipboard2";
 Vue.use(VueClipboard);

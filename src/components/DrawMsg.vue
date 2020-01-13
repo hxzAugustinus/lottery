@@ -19,7 +19,7 @@
         <img v-for="(item, index) in imgList" :key="index" :src="item" alt :onerror="defaultAvatar" />
       </div>
     </div>
-    <van-button type="danger" :disabled="disabled">邀请好友助力</van-button>
+    <van-button type="danger" :disabled="disabled" @click="showoverlay">邀请好友助力</van-button>
   </div>
 </template>
 
@@ -35,6 +35,11 @@ export default {
       defaultAvatar: 'this.src="' + require("@/images/defultImg.png") + '"',
       disabled: false
     };
+  },
+  methods: {
+    showoverlay() {
+      this.$emit("showOverlay");
+    }
   }
 };
 </script>
@@ -126,9 +131,9 @@ export default {
       display: flex;
       align-items: center;
       img {
-          width: 49px;
-          height: 49px;
-          margin-right: 12px;
+        width: 49px;
+        height: 49px;
+        margin-right: 12px;
       }
     }
   }
@@ -138,9 +143,9 @@ export default {
     font-size: 18px;
   }
   .van-button--disabled {
-      opacity: 1;
-      background:rgba(204,204,204,1);
-      border: 1px solid rgba(204,204,204,1);
+    opacity: 1;
+    background: rgba(204, 204, 204, 1);
+    border: 1px solid rgba(204, 204, 204, 1);
   }
 }
 </style>
