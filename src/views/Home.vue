@@ -67,10 +67,10 @@ export default {
       joinperson: 113856,
       showModel: false,
       drawFirst: true,
-      showDraw: false,
+      showDraw: true,
       showMsg: false,
       showWin: false,
-      showLose: true,
+      showLose: false,
       showOverlay: false,
       content:
         "手里接过获得胜利后但是立刻脚后跟流口水的韩国快乐圣诞节和可见光和领导萨克结果回来开始的就会过来看是的结果后来开始的结果后来看到世界观和是扩大解放韩国离开但是结果很快的时间后来开始电话发给来看待世界富豪",
