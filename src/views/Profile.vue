@@ -11,8 +11,13 @@
     </div>
     <div class="my-lottery" v-else>
       <div class="lottery-list">
-        <div class="lottery-item" v-for="(item,index) in drawList" :key="index" @click="toDetail">
-          <div class="item-img" >
+        <div
+          class="lottery-item"
+          v-for="(item,index) in drawList"
+          :key="index"
+          @click="toDetail(item)"
+        >
+          <div class="item-img">
             <img src="@/images/domoimg.png" alt />
             <div class="lottery-state" v-if="item.state == 1">
               <div>
@@ -25,7 +30,6 @@
                 <span>已结束</span>
               </div>
               <img src="@/images/lottery-over.png" alt />
-              
             </div>
             <div class="over" v-if="item.state == 0"></div>
           </div>
@@ -35,8 +39,8 @@
               <span>{{item.name}}</span>
             </div>
             <div class="item-text">
-              <span>{{item.date}}</span>
-              <span>自动开奖</span>
+              <span>{{item.date}} </span>
+              <span>  自动开奖</span>
             </div>
           </div>
         </div>
@@ -76,6 +80,15 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    toDetail: function(item) {
+      console.log(item)
+      if(item.state == 1){
+        localStorage.setItem('lottary-item',JSON.stringify(item))
+        this.$router.push({ name: "detail" });
+      }
+    }
   }
 };
 </script>
@@ -185,7 +198,7 @@ export default {
             line-height: 25px;
           }
         }
-        .item-content-over{
+        .item-content-over {
           color: #999 !important;
         }
       }

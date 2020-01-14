@@ -21,8 +21,8 @@
           <span>{{detailItem.name}}</span>
         </div>
         <div class="item-text">
-          <span>{{detailItem.date}}</span>
-          <span>自动开奖</span>
+          <span>{{detailItem.date}} </span>
+          <span> 自动开奖</span>
         </div>
       </div>
     </div>
@@ -49,6 +49,7 @@
 
 <script>
 export default {
+
   data() {
     return {
       detailItem: {
@@ -57,23 +58,33 @@ export default {
         date: "01月12日 10:00",
         state: "1"
       }
-    };
+    }
+  },
+  mounted(){
+    this.detailItem = JSON.parse(localStorage.getItem('lottary-item'));
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .detail {
-  background: #f7f7f7;
+  width: 100%;
+  height: 100%;
   .detail-item {
     height: 320px;
-    padding: 15px;
-    margin-bottom: 10px;
+    padding: 15px 15px 0 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background: white;
+    &::after{
+      content: '';
+      width: 100%;
+      height: 10px;
+      background: #f7f7f7;
+      margin-top: 15px;
+    }
     .item-img {
       height: 250px;
       margin-bottom: 15px;
@@ -136,7 +147,7 @@ export default {
   .lottery-info {
     background: white;
     .info-title {
-      margin: 15px;
+      margin: 0 15px 15px 15px;
       padding: 10px;
       font-size: 20px;
       font-family: PingFang-SC-Heavy, PingFang-SC;
@@ -207,7 +218,7 @@ export default {
     }
     .info-btn{
         margin: 15px;
-        width: 345px;
+        width: calc( 100% - 30px);
         height: 46px;
         font-size: 18px;
         font-weight: bold;
