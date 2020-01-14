@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-01-09 10:53:54
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-10 13:52:46
+ * @LastEditTime : 2020-01-14 15:31:52
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -43,6 +43,15 @@ const routes = [
       import(/* webpackChunkName: "share" */ "../views/Share.vue"),
     meta: {
       title: "生成分享图"
+    }
+  },
+  {
+    path: "/flaunt",
+    name: "flaunt",
+    component: () =>
+      import(/* webpackChunkName: "flaunt" */ "../views/Flaunt.vue"),
+    meta: {
+      title: "炫耀一下"
     }
   },
   {
