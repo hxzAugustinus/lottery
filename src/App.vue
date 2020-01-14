@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-09 10:39:39
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-10 16:11:04
+ * @LastEditTime : 2020-01-14 10:34:24
  -->
 <template>
   <div id="app">
@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     /* config */
+    init() {}
   }
 };
 </script>

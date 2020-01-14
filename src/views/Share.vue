@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-13 19:33:18
+ * @LastEditTime : 2020-01-14 11:01:51
  -->
 <template>
   <div class="share-page">
@@ -24,7 +24,10 @@
         />
         <div>奖品：日本资深堂美润护手霜及纯手工面霜一盒</div>
       </section>
-      <section class="qrcode"></section>
+      <section class="qrcode">
+        <div></div>
+        <div>长按识别小程序来【网上老年大学】试试运气</div>
+      </section>
     </article>
     <template v-if="imageFile">
       <div class="image_wrap">
@@ -62,7 +65,6 @@ export default {
       };
       const canvas = await html2canvas(el, options);
       this.imageFile = canvas.toDataURL("image/png");
-      console.log(canvas);
     }
   }
 };
@@ -72,7 +74,7 @@ export default {
 .share-page {
   position: relative;
   height: 100%;
-  padding: 15px 15px 50px;
+  padding: 15px 15px 40px;
   box-sizing: border-box;
 
   .share-content {
@@ -89,11 +91,9 @@ export default {
     flex-direction: column;
 
     .header {
+      font-size: 0;
       text-align: center;
-      margin: 1.875rem auto 0.9375rem;
-      font-size: 1rem;
-      color: white;
-      line-height: 1.875rem;
+      margin: 1.25rem auto 0.9375rem;
       .avator {
         display: inline-block;
         width: 3.75rem;
@@ -104,6 +104,12 @@ export default {
           width: 100%;
           height: 100%;
         }
+      }
+
+      > div {
+        font-size: 1rem;
+        color: white;
+        line-height: 1.875rem;
       }
 
       > div:last-child {
@@ -131,9 +137,27 @@ export default {
     }
 
     .qrcode {
+      box-sizing: border-box;
       border-top: 1px solid #d8d8d8;
       height: 7.5rem;
       background: white;
+      padding: 0.9375rem;
+      display: flex;
+      align-items: center;
+
+      > div:first-child {
+        width: 5rem;
+        height: 5rem;
+        background: goldenrod;
+      }
+
+      > div:last-child {
+        margin-left: 0.9375rem;
+        flex: 1;
+        font-size: 1rem;
+        color: #666666;
+        line-height: 1.75rem;
+      }
     }
   }
 
