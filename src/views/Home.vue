@@ -6,6 +6,7 @@
 <template>
   <div class="home">
     <img class="bg" src="@/images/homeBg.png" />
+    <p class="lotteryTime">活动时间：{{lotteryTime}}</p>
     <div class="user">
       <router-link :to="{ name: 'profile' }" class="router"></router-link>
       <span></span>
@@ -41,7 +42,7 @@
         @showmodel="showmodel"
       ></Loselottery>
       <div class="prizeBox">
-        <p>图文详情</p>
+        <p class="prizeBox-title">抽奖说明</p>
         <div v-html="content" class="content"></div>
       </div>
     </div>
@@ -73,13 +74,14 @@ export default {
       showLose: false,
       showOverlay: false,
       content:
-        "手里接过获得胜利后但是立刻脚后跟流口水的韩国快乐圣诞节和可见光和领导萨克结果回来开始的就会过来看是的结果后来开始的结果后来看到世界观和是扩大解放韩国离开但是结果很快的时间后来开始电话发给来看待世界富豪",
+        "<p>新春福利，限时抽奖活动</p><p>1.本次活动需添加活动微信“ jidx002 ”才能获得抽奖资格和领取奖品。</p><p>2.添加活动微信“ jidx002 ”可领取鼠宝宝布偶一个，共计200个，先到先得，送完即止。</p><p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p><p>4.本次活动100%真实有效，最终解释权归网上老年大学</p>",
       imgList: [require("@/images/userimg.png"), "", ""],
       winperson: {
         avatar: require("@/images/userimg.png"),
         name: "是客服打",
         drawCode: "234567"
-      }
+      },
+      lotteryTime: "1月15日—2月9日"
     };
   },
   components: {
@@ -147,6 +149,16 @@ export default {
   );
   position: relative;
   overflow: hidden;
+  .lotteryTime {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(246, 8, 45, 1);
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 171px;
+    margin: 0;
+  }
   .bg {
     width: 100%;
     height: 639px;
@@ -189,15 +201,15 @@ export default {
     box-sizing: border-box;
     padding-bottom: 109px;
     .prizeBox {
-      width: 100%;
-      height: 296px;
       background: #fff;
       border-radius: 10px;
       margin-top: 20px;
-      padding: 0 15px 70px 16px;
-      box-sizing: border-box;
+      padding: 0 15px 25px 16px;
       overflow: hidden;
       p {
+        margin: 0;
+      }
+      .prizeBox-title {
         font-size: 20px;
         font-weight: 800;
         color: rgba(51, 51, 51, 1);
