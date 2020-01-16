@@ -6,7 +6,6 @@
 <template>
   <div class="home">
     <img class="bg" src="@/images/homeBg.png" />
-    <p class="lotteryTime">活动时间：{{lotteryTime}}</p>
     <div class="user">
       <router-link :to="{ name: 'profile' }" class="router"></router-link>
       <span></span>
@@ -18,24 +17,24 @@
         :drawFirst="drawFirst"
         @showMsg="showmsg"
         :drawCode="drawCode"
-        v-if="showDraw"
+        v-if="lotteryShow.showDraw"
       ></Raffle>
       <Waitedraw
-        v-if="showMsg"
+        v-if="lotteryShow.showMsg"
         :imgList="imgList"
         :drawCode="drawCode"
         :joinperson="joinperson"
         @showOverlay="showoverlay"
       ></Waitedraw>
       <Winlottery
-        v-if="showWin"
+        v-if="lotteryShow.showWin"
         :winperson="winperson"
         :drawCode="drawCode"
         :joinperson="joinperson"
         @showmodel="showmodel"
       ></Winlottery>
       <Loselottery
-        v-if="showLose"
+        v-if="lotteryShow.showLose"
         :winperson="winperson"
         :drawCode="drawCode"
         :joinperson="joinperson"
@@ -43,10 +42,16 @@
       ></Loselottery>
       <div class="prizeBox">
         <p class="prizeBox-title">抽奖说明</p>
-        <div v-html="content" class="content"></div>
+        <div class="content">
+          <p>新春福利，限时抽奖活动</p>
+          <p>1.本次活动需添加活动微信“ {{goodsContent.wechatNum}} ”才能获得抽奖资格和领取奖品。</p>
+          <p>2.添加活动微信“ {{goodsContent.wechatNum}} ”可领取{{goodsContent.goodsName}}，共计{{goodsContent.goodsNum}}份，先到先得，送完即止。</p>
+          <p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p>
+          <p>4.本次活动100%真实有效，最终解释权归网上老年大学</p>
+        </div>
       </div>
     </div>
-    <wx-modal :showModel="showModel" @showmodel="showmodel"></wx-modal>
+    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="goodsContent.wechatNum"></wx-modal>
     <Overlay :Overlay="showOverlay" @showOverlay="showoverlay"></Overlay>
   </div>
 </template>
@@ -68,20 +73,61 @@ export default {
       joinperson: 113856,
       showModel: false,
       drawFirst: true,
-      showDraw: true,
-      showMsg: false,
-      showWin: false,
-      showLose: false,
-      showOverlay: false,
-      content:
-        "<p>新春福利，限时抽奖活动</p><p>1.本次活动需添加活动微信“ jidx002 ”才能获得抽奖资格和领取奖品。</p><p>2.添加活动微信“ jidx002 ”可领取鼠宝宝布偶一个，共计200个，先到先得，送完即止。</p><p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p><p>4.本次活动100%真实有效，最终解释权归网上老年大学</p>",
-      imgList: [require("@/images/userimg.png"), "", ""],
-      winperson: {
-        avatar: require("@/images/userimg.png"),
-        name: "是客服打",
-        drawCode: "234567"
+      lotteryShow: {
+        showDraw: true,
+        showMsg: false,
+        showWin: false,
+        showLose: false
       },
-      lotteryTime: "1月15日—2月9日"
+      showOverlay: false,
+      imgList: [require("@/images/userimg.png"), "", ""],
+      winperson: [
+        {
+          avatar: require("@/images/userimg.png"),
+          name: "是客服打",
+          drawCode: "234567"
+        },
+        {
+          avatar: require("@/images/userimg.png"),
+          name: "是客服打",
+          drawCode: "234567"
+        },
+        {
+          avatar: require("@/images/userimg.png"),
+          name: "是客服打",
+          drawCode: "234567"
+        },
+        {
+          avatar: require("@/images/userimg.png"),
+          name: "是客服打",
+          drawCode: "234567"
+        },
+        {
+          avatar: require("@/images/userimg.png"),
+          name: "是客服打",
+          drawCode: "234567"
+        },
+        {
+          avatar: require("@/images/userimg.png"),
+          name: "是客服打",
+          drawCode: "234567"
+        },
+        {
+          avatar: require("@/images/userimg.png"),
+          name: "是客服打",
+          drawCode: "234567"
+        },
+        {
+          avatar: require("@/images/userimg.png"),
+          name: "是客服打",
+          drawCode: "234567"
+        }
+      ],
+      goodsContent: {
+        wechatNum: "jidx002",
+        goodsNum: "200",
+        goodsName: "鼠宝宝布偶"
+      }
     };
   },
   components: {
@@ -94,24 +140,27 @@ export default {
     Loselottery
   },
   mounted() {
-    let winperson = {
-        avatar: require("@/images/userimg.png"),
-        name: "是撒旦飞洒地方客",
-        drawCode: "234567"
-      },
-      num = "";
-    if (winperson.name.length - 2 > 0) {
-      for (let i = 0; i < winperson.name.length - 2; i++) {
-        num = num + "*";
+    let winperson = this.winperson;
+    winperson.forEach(item => {
+      if (item.name.length - 2 > 0) {
+        let num = "";
+        for (let i = 0; i < item.name.length - 2; i++) {
+          num = num + "*";
+        }
+        item.name =
+          item.name.substring(0, 1) +
+          num +
+          item.name.substring(item.name.length - 1);
+      } else {
+        item.name = item.name.substring(0, 1) + "*";
       }
-      winperson.name =
-        winperson.name.substring(0, 1) +
-        num +
-        winperson.name.substring(winperson.name.length - 1);
-    } else {
-      winperson.name = winperson.name.substring(0, 1) + "*";
-    }
+    });
     this.winperson = winperson;
+    var curTime = new Date();
+    //把字符串格式转化为日期类
+    console.log(curTime);
+    // var starttime = new Date(Date.parse(begintime));
+    // var endtime = new Date(Date.pares(endtime));
   },
   methods: {
     closeModal() {
@@ -127,13 +176,13 @@ export default {
     },
     showmsg() {
       setTimeout(() => {
-        this.showDraw = false;
-        this.showMsg = true;
+        this.lotteryShow.showDraw = false;
+        this.lotteryShow.showMsg = true;
         this.showModel = false;
       }, 3000);
     },
     showoverlay() {
-      this.showOverlay ? (this.showOverlay = false) : (this.showOverlay = true);
+      // this.showOverlay ? (this.showOverlay = false) : (this.showOverlay = true);
     }
   }
 };
@@ -149,16 +198,6 @@ export default {
   );
   position: relative;
   overflow: hidden;
-  .lotteryTime {
-    font-size: 18px;
-    font-weight: 600;
-    color: rgba(246, 8, 45, 1);
-    width: 100%;
-    text-align: center;
-    position: absolute;
-    top: 171px;
-    margin: 0;
-  }
   .bg {
     width: 100%;
     height: 639px;
@@ -181,6 +220,8 @@ export default {
       display: block;
       width: 100%;
       height: 100%;
+      position: relative;
+      z-index: 5;
     }
     span {
       display: block;
@@ -191,6 +232,7 @@ export default {
       border-radius: 3px;
       position: absolute;
       bottom: 0;
+      z-index: 0;
     }
   }
   .contariner {

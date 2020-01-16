@@ -19,11 +19,11 @@
     </div>
     <div class="winperson">
       <h1>中奖名单</h1>
-      <div class="personCon">
-        <img :src="winperson.avatar" alt :onerror="defaultAvatar" />
+      <div class="personCon" v-for="(item, index) in winperson" :key="index">
+        <img :src="item.avatar" alt :onerror="defaultAvatar" />
         <div>
-          <p>{{winperson.name}}</p>
-          <p>兑奖码：{{winperson.drawCode}}</p>
+          <p>{{item.name}}</p>
+          <p>兑奖码：{{item.drawCode}}</p>
         </div>
       </div>
     </div>
@@ -168,6 +168,7 @@ export default {
       border-radius: 3px;
       display: flex;
       align-items: center;
+      margin-top: 15px;
       img {
         width: 48px;
         height: 48px;

@@ -14,12 +14,12 @@
     </div>
     <p class="DrawMsg-content">每邀请一位新用户，注册【网上老年大学】，可以增加5%获奖概率哦～（每个商品限4个。</p>
     <div class="invatepeple" v-if="imgList.length > 0">
-      <p>已邀请4位，中奖概率增加{{imgList.length * 5 }}%</p>
+      <p>已邀请{{imgList.length}}位，中奖概率增加{{imgList.length * 5 }}%</p>
       <div class="imgBox">
         <img v-for="(item, index) in imgList" :key="index" :src="item" alt :onerror="defaultAvatar" />
       </div>
     </div>
-    <van-button type="danger" :disabled="disabled" @click="showoverlay">邀请好友助力</van-button>
+    <van-button type="danger" :disabled="imgList.length >= 4" @click="showoverlay">邀请好友助力</van-button>
   </div>
 </template>
 
@@ -39,12 +39,18 @@ export default {
   data() {
     return {
       defaultAvatar: 'this.src="' + require("@/images/defultImg.png") + '"',
-      disabled: false
+      disabled: false,
+      goodsId: 111
     };
   },
   methods: {
     showoverlay() {
-      this.$emit("showOverlay");
+      this.$router.push({
+        name: "share",
+        params: {
+          goodsId: this.goodsId
+        }
+      });
     }
   }
 };
