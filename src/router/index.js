@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-01-09 10:53:54
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-14 15:31:52
+ * @LastEditTime : 2020-01-15 15:51:18
  */
 import Vue from "vue";
 import VueRouter from "vue-router";

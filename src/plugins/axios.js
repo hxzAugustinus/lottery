@@ -1,13 +1,14 @@
 /*
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-10 10:52:59
+ * @LastEditTime : 2020-01-15 19:40:57
  */
 "use strict";
 
 import Vue from "vue";
 import axios from "axios";
 import qs from "qs";
+import store from "@/store";
 
 // Full config:  https://github.com/axios/axios#request-config
 axios.defaults.headers.post["Content-Type"] =
@@ -22,8 +23,8 @@ const _axios = axios.create(config);
 
 _axios.interceptors.request.use(
   function(config) {
-    // Do something before request is sent
     /* post请求参数序列化 */
+    Object.assign(config.headers, { uid: store.state.uid });
     if (config.method === "post") {
       config.data = qs.stringify(config.data);
     }
@@ -39,7 +40,7 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   function(response) {
     // Do something with response data
-    if (response.status == 200 && response.data.code == 1) {
+    if (response.status == 200) {
       return response.data.data;
     } else {
       return Promise.reject(response.data);

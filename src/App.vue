@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-09 10:39:39
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-14 15:29:34
+ * @LastEditTime : 2020-01-15 16:55:55
  -->
 <template>
   <div id="app">
@@ -17,18 +17,11 @@ export default {
         /* 用户id */
         const uid = this.$utils.getQueryString("uid");
         /* 商品id */
-        const goodsId = this.$utils.getQueryString("goodsId");
+        const goodsId = this.$utils.getQueryString("id");
         console.log(uid, goodsId);
         this.$store.commit("setAuth", { uid, goodsId });
       }
     });
-  },
-  methods: {
-    /* config */
-    init() {
-      /* 1.请求拿取key */
-      /* 2.根据key设置config */
-    }
   }
 };
 </script>

@@ -1,17 +1,25 @@
 /*
  * @Date: 2020-01-10 10:00:16
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-10 10:03:44
+ * @LastEditTime : 2020-01-15 18:19:55
  */
-import vue from "vue";
+import Vue from "vue";
 
 export default {
   /**
-   * @description: 请求范例
-   * @param {Object} parmas
+   * @description: 获取用户参与某个抽奖的分享二维码
+   * @param {int} goods_id
    * @return: promise
    */
-  getExample(params) {
-    return vue.$axios.post("/example/getInfo", params);
+  getQrcode(goods_id) {
+    return Vue.axios.get("/lottery/getQrcode?goods_id=" + goods_id);
+  },
+  /**
+   * @description: 获取用户最近的抽奖记录
+   * @param {int}goods_id
+   * @return: promise
+   */
+  getLatestRecord(goods_id) {
+    return Vue.axios.get("/lottery/getLatestRecord?goods_id" + goods_id);
   }
 };

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-14 16:55:06
+ * @LastEditTime : 2020-01-16 09:07:33
  -->
 <template>
   <div class="share-page">
@@ -46,13 +46,12 @@
 </template>
 
 <script>
-import Img64 from "@/mock/mock";
 import html2canvas from "html2canvas";
 export default {
   data() {
     return {
       imageFile: "",
-      good_img: Img64.base64
+      good_img: "base64"
     };
   },
   mounted() {

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-14 11:01:51
+ * @LastEditTime : 2020-01-15 18:43:00
  -->
 <template>
   <div class="share-page">
@@ -18,14 +18,13 @@
       </section>
       <section class="goods">
         <!-- 需要允许跨域 -->
-        <img
-          src="https://hwcdn.jinlingkeji.cn/images/other/lottery.png"
-          alt="奖品示意图"
-        />
+        <img :src="user.image_base64" alt="奖品示意图" />
         <div>奖品：日本资深堂美润护手霜及纯手工面霜一盒</div>
       </section>
       <section class="qrcode">
-        <div></div>
+        <div>
+          <img :src="Qrcode" alt="小程序码" />
+        </div>
         <div>长按识别小程序来【网上老年大学】试试运气</div>
       </section>
     </article>
@@ -45,15 +44,27 @@
 </template>
 
 <script>
+import http from "@/api/HomeApi.js";
 import html2canvas from "html2canvas";
 export default {
   data() {
     return {
-      imageFile: ""
+      imageFile: "",
+      Qrcode: "",
+      user: {}
     };
   },
   mounted() {
-    this.save();
+    Promise.all([
+      http.getQrcode(this.$store.state.goodsId),
+      http.getLatestRecord(this.$store.state.goodsId)
+    ]).then(res => {
+      this.Qrcode = res[0];
+      this.user = res[1];
+      this.$nextTick(() => {
+        this.save();
+      });
+    });
   },
   methods: {
     async save() {
@@ -148,7 +159,9 @@ export default {
       > div:first-child {
         width: 5rem;
         height: 5rem;
-        background: goldenrod;
+        > img {
+          width: 100%;
+        }
       }
 
       > div:last-child {
