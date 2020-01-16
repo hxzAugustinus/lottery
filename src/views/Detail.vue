@@ -7,61 +7,87 @@
   <div class="detail">
     <div class="detail-item">
       <div class="item-img">
-        <img src="@/images/domoimg.png" alt />
-        <div class="detail-state">
+        <img :src="detailItem.image" alt />
+        <div class="detail-state" v-if="status == 0">
           <div>
             <span>待开奖</span>
           </div>
           <img src="@/images/lottery-ing.png" alt />
         </div>
+        <div class="detail-state" v-if="status == -1">
+          <div>
+            <span>未中奖</span>
+          </div>
+          <img src="@/images/lottery-over.png" alt />
+        </div>
+        <div class="detail-state" v-if="status == 1">
+          <div>
+            <span>已中奖</span>
+          </div>
+          <img src="@/images/lottery-win.png" alt />
+        </div>
       </div>
       <div class="item-content">
         <div class="item-title">
           <span>奖品:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <span>{{detailItem.name}}</span>
+          <span>{{detailItem.title}}</span>
         </div>
         <div class="item-text">
-          <span>{{detailItem.date}}</span>
-          <span>自动开奖</span>
+          <span>{{detailItem.end_time}}</span>
+          <span>&nbsp;自动开奖</span>
         </div>
       </div>
     </div>
     <div class="heng"></div>
-    <div class="lottery-info">
-      <div class="info-title">抽奖信息</div>
-      <div class="info-box">
-        <div class="info-text">
-          <div class="left">等待开奖</div>
-          <div class="right">
-            <img src="@/images/person.png" alt />
-            <span>11838</span>
-          </div>
-        </div>
-        <div class="my-coin">
-          <span>我的兑奖码</span>
-          <span>237890</span>
-        </div>
-        <div class="info-content">每邀请一位新用户，注册【网上老年大学】，可以增加5%获奖概率哦～（每个商品限4个。</div>
-      </div>
-      <button class="info-btn">邀请好友助力</button>
-    </div>
+    <Waitedraw
+      :imgList="lucky_users"
+      :drawCode="detailItem.exchange_code"
+      :joinperson="detailItem.join_total"
+      style="margin-top:0px;"
+    ></Waitedraw>
   </div>
 </template>
 
 <script>
+import api from "@/api/LotteryApi.js";
+import Waitedraw from "@/components/Waitedraw.vue";
 export default {
+  components: {
+    Waitedraw
+  },
   data() {
     return {
-      detailItem: {
-        imgSrc: "@/images/domoimg.png",
-        name: "日本资深堂美润护手霜100gx1",
-        date: "01月12日 10:00",
-        state: "1"
-      }
+      detailItem: {},
+      lucky_users: [],
+      pre_goods: {}
     };
+  },
+  created() {
+    this.status = this.$route.query.status;
+    api.getRecordById(this.$route.query.id).then(res => {
+      res.record.end_time = this.timestampToTime(res.record.end_time);
+      res.record.exchange_code = Number(res.record.exchange_code);
+      this.detailItem = res.record;
+      this.lucky_users = res.lucky_users;
+      this.pre_goods = res.pre_goods;
+    });
   },
   mounted() {
     this.detailItem = JSON.parse(localStorage.getItem("lottary-item"));
+  },
+  methods: {
+    timestampToTime(timestamp) {
+      var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var Y = date.getFullYear() + "-";
+      var M =
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) + "-";
+      var D = date.getDate() + " ";
+      var h = date.getHours() + ":";
+      var m = date.getMinutes();
+      return Y + M + D + h + m;
+    }
   }
 };
 </script>
@@ -83,7 +109,6 @@ export default {
     justify-content: center;
     flex-direction: column;
     background: white;
-    margin-bottom: 10px;
     .item-img {
       height: 250px;
       margin-bottom: 15px;
@@ -136,7 +161,6 @@ export default {
       .item-text {
         height: 25px;
         font-size: 18px;
-        font-family: PingFang-SC-Medium, PingFang-SC;
         font-weight: 500;
         color: rgba(51, 51, 51, 1);
         line-height: 25px;

@@ -15,32 +15,40 @@
           class="lottery-item"
           v-for="(item,index) in drawList"
           :key="index"
-          @click="toDetail(item)"
+          @click="toDetail(item.id, item.status)"
         >
           <div class="item-img">
-            <img src="@/images/domoimg.png" alt />
-            <div class="lottery-state" v-if="item.state == 1">
+            <img :src="item.image" alt />
+            <div class="lottery-state" v-if="item.status == 0">
               <div>
                 <span>待开奖</span>
               </div>
               <img src="@/images/lottery-ing.png" alt />
             </div>
-            <div class="lottery-state" v-else>
+            <div class="lottery-state" v-if="item.status == -1">
               <div>
                 <span>已结束</span>
               </div>
               <img src="@/images/lottery-over.png" alt />
             </div>
+            <div class="lottery-state" v-if="item.status == 1">
+              <div>
+                <span>已中奖</span>
+              </div>
+              <img src="@/images/lottery-win.png" alt />
+            </div>
             <div class="over" v-if="item.state == 0"></div>
           </div>
-          <div :class="['item-content', {'item-content-over' : item.state==0}]">
+          <div
+            :class="['item-content', {'item-content-over' : item.status ==1 || item.status == -1}]"
+          >
             <div class="item-title">
               <span>奖品:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-              <span>{{item.name}}</span>
+              <span>{{item.title}}</span>
             </div>
             <div class="item-text">
-              <span>{{item.date}}</span>
-              <span>自动开奖</span>
+              <span>{{item.end_time}}</span>
+              <span>&nbsp;自动开奖</span>
             </div>
           </div>
         </div>
@@ -50,44 +58,37 @@
 </template>
 
 <script>
+import api from "@/api/LotteryApi.js";
+
 export default {
   data() {
     return {
-      drawList: [
-        {
-          imgSrc: "@/images/domoimg.png",
-          name: "日本资深堂美润护手霜100gx1",
-          date: "01月12日 10:00",
-          state: "1"
-        },
-        {
-          imgSrc: "@/images/domoimg.png",
-          name: "日本资深堂美润护手霜100gx1",
-          date: "01月10日 10:00",
-          state: "0"
-        },
-        {
-          imgSrc: "@/images/domoimg.png",
-          name: "欧莱雅面膜125gx5 日本资深堂美润护手霜100gx1",
-          date: "01月08日 10:00",
-          state: "0"
-        },
-        {
-          imgSrc: "@/images/domoimg.png",
-          name: "日本资深堂美润护手霜100gx1",
-          date: "01月08日 10:00",
-          state: "0"
-        }
-      ]
+      drawList: []
     };
   },
+  created() {
+    api.getRecordList().then(res => {
+      res.forEach(item => {
+        item.end_time = this.timestampToTime(item.end_time);
+      });
+      this.drawList = res;
+    });
+  },
   methods: {
-    toDetail: function(item) {
-      console.log(item);
-      if (item.state == 1) {
-        localStorage.setItem("lottary-item", JSON.stringify(item));
-        this.$router.push({ name: "detail" });
-      }
+    toDetail: function(id, status) {
+      this.$router.push({ name: "detail", query: { id, status } });
+    },
+    timestampToTime(timestamp) {
+      var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var Y = date.getFullYear() + "-";
+      var M =
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) + "-";
+      var D = date.getDate() + " ";
+      var h = date.getHours() + ":";
+      var m = date.getMinutes();
+      return Y + M + D + h + m;
     }
   }
 };
@@ -196,7 +197,6 @@ export default {
           .item-text {
             height: 25px;
             font-size: 18px;
-            font-family: PingFang-SC-Medium, PingFang-SC;
             font-weight: 500;
             line-height: 25px;
           }
