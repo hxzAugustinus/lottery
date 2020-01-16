@@ -16,6 +16,7 @@
         @close-modal="closeModal"
         :drawFirst="drawFirst"
         @showMsg="showmsg"
+        @getdrawCode="getdrawCode"
         :drawCode="drawCode"
         v-if="lotteryShow.showDraw"
       ></Raffle>
@@ -64,12 +65,13 @@ import Waitedraw from "@/components/Waitedraw.vue";
 import Overlay from "@/components/Overlay.vue";
 import Winlottery from "@/components/Winlottery.vue";
 import Loselottery from "@/components/Loselottery.vue";
+import api from "@/api/LotteryApi.js";
 
 export default {
   name: "home",
   data() {
     return {
-      drawCode: 996038,
+      drawCode: 0,
       joinperson: 113856,
       showModel: false,
       drawFirst: true,
@@ -89,22 +91,22 @@ export default {
         },
         {
           avatar: require("@/images/userimg.png"),
-          name: "是客服打",
+          name: "是客",
           drawCode: "234567"
         },
         {
           avatar: require("@/images/userimg.png"),
-          name: "是客服打",
+          name: "是客打",
           drawCode: "234567"
         },
         {
           avatar: require("@/images/userimg.png"),
-          name: "是客服打",
+          name: "是否离开过何时离开皇宫",
           drawCode: "234567"
         },
         {
           avatar: require("@/images/userimg.png"),
-          name: "是客服打",
+          name: "了洒家分厘卡即使",
           drawCode: "234567"
         },
         {
@@ -173,6 +175,20 @@ export default {
     },
     showmodel(val) {
       this.showModel = val;
+    },
+    getdrawCode() {
+      if (this.drawCode > 0) return;
+      api
+        .lotteryJoinIn(this.$store.state.goodsId)
+        .then(res => {
+          if (res.exchange_code) {
+            this.drawCode = Number(res.exchange_code);
+            console.log(this.drawCode);
+          }
+        })
+        .catch(() => {
+          // alert("网络开了小差,稍后再试哦！");
+        });
     },
     showmsg() {
       setTimeout(() => {

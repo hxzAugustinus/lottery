@@ -5,7 +5,7 @@
  -->
 <template>
   <div class="contrain">
-    <div class="qst" v-if="drawList.length == 1">
+    <div class="qst" v-if="drawList.length == 0">
       <img src="@/images/drawqst.png" alt />
       <p>还没参与活动哦，赶紧去抽奖吧！</p>
     </div>
@@ -39,8 +39,8 @@
               <span>{{item.name}}</span>
             </div>
             <div class="item-text">
-              <span>{{item.date}} </span>
-              <span>  自动开奖</span>
+              <span>{{item.date}}</span>
+              <span>自动开奖</span>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default {
           imgSrc: "@/images/domoimg.png",
           name: "欧莱雅面膜125gx5 日本资深堂美润护手霜100gx1",
           date: "01月08日 10:00",
-          state: "1"
+          state: "0"
         },
         {
           imgSrc: "@/images/domoimg.png",
@@ -83,9 +83,9 @@ export default {
   },
   methods: {
     toDetail: function(item) {
-      console.log(item)
-      if(item.state == 1){
-        localStorage.setItem('lottary-item',JSON.stringify(item))
+      console.log(item);
+      if (item.state == 1) {
+        localStorage.setItem("lottary-item", JSON.stringify(item));
         this.$router.push({ name: "detail" });
       }
     }
@@ -98,6 +98,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+  background: rgba(247, 247, 247, 1);
   .qst {
     width: 100%;
     height: 100%;
@@ -150,6 +151,7 @@ export default {
             top: 0;
             left: 0;
             right: 0;
+            z-index: 0;
           }
           .lottery-state {
             position: absolute;
@@ -160,6 +162,7 @@ export default {
             text-align: center;
             font-weight: 400;
             font-family: PingFangSC-Regular, PingFang SC;
+            z-index: 1;
             div {
               width: 97px;
               height: 36px;

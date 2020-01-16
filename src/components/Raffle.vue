@@ -83,12 +83,17 @@ export default {
       this.$emit("close-modal");
       if (this.drawFirst) return;
       this.acticon = true;
-      this.showNum = true;
+      this.$emit("getdrawCode");
       setTimeout(() => {
-        this.toOrderNum(this.drawCode); // 这里输入数字即可调用
+        if (this.drawCode > 0 && !this.showNum) {
+          this.showNum = true;
+          setTimeout(() => {
+            this.toOrderNum(this.drawCode); // 这里输入数字即可调用
+            this.$emit("showMsg");
+          }, 200);
+        }
         this.acticon = false;
       }, 200);
-      this.$emit("showMsg");
     }
   }
 };

@@ -21,11 +21,12 @@
           <span>{{detailItem.name}}</span>
         </div>
         <div class="item-text">
-          <span>{{detailItem.date}} </span>
-          <span> 自动开奖</span>
+          <span>{{detailItem.date}}</span>
+          <span>自动开奖</span>
         </div>
       </div>
     </div>
+    <div class="heng"></div>
     <div class="lottery-info">
       <div class="info-title">抽奖信息</div>
       <div class="info-box">
@@ -49,7 +50,6 @@
 
 <script>
 export default {
-
   data() {
     return {
       detailItem: {
@@ -58,10 +58,10 @@ export default {
         date: "01月12日 10:00",
         state: "1"
       }
-    }
+    };
   },
-  mounted(){
-    this.detailItem = JSON.parse(localStorage.getItem('lottary-item'));
+  mounted() {
+    this.detailItem = JSON.parse(localStorage.getItem("lottary-item"));
   }
 };
 </script>
@@ -70,21 +70,20 @@ export default {
 .detail {
   width: 100%;
   height: 100%;
+  .heng {
+    width: 100%;
+    height: 10px;
+    background: rgba(247, 247, 247, 1);
+  }
   .detail-item {
     height: 320px;
-    padding: 15px 15px 0 15px;
+    padding: 15px 15px 16px 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background: white;
-    &::after{
-      content: '';
-      width: 100%;
-      height: 10px;
-      background: #f7f7f7;
-      margin-top: 15px;
-    }
+    margin-bottom: 10px;
     .item-img {
       height: 250px;
       margin-bottom: 15px;
@@ -180,14 +179,13 @@ export default {
           align-items: center;
           padding: 0 10px;
           span {
-            
             font-size: 16px;
             font-family: PingFang-SC-Medium, PingFang-SC;
             font-weight: 500;
             color: rgba(153, 153, 153, 1);
             margin-bottom: 2px;
           }
-          img{
+          img {
             width: 18px;
             height: 14px;
           }
@@ -199,36 +197,36 @@ export default {
         font-weight: 500;
         color: #333;
         line-height: 25px;
-        span:last-child{
+        span:last-child {
           margin-left: 5px;
-          font-family:PingFang-SC-Bold,PingFang-SC;
-          font-weight:bold;
-          color: #DE2020;
-          line-height:18px;
+          font-family: PingFang-SC-Bold, PingFang-SC;
+          font-weight: bold;
+          color: #de2020;
+          line-height: 18px;
         }
       }
-      .info-content{
-        font-size:18px;
-        font-family:PingFang-SC-Medium,PingFang-SC;
-        font-weight:500;
-        color:rgba(102,102,102,1);
-        line-height:27px;
+      .info-content {
+        font-size: 18px;
+        font-family: PingFang-SC-Medium, PingFang-SC;
+        font-weight: 500;
+        color: rgba(102, 102, 102, 1);
+        line-height: 27px;
         margin-bottom: 10px;
       }
     }
-    .info-btn{
-        margin: 15px;
-        width: calc( 100% - 30px);
-        height: 46px;
-        font-size: 18px;
-        font-weight: bold;
-        font-family:PingFang-SC-Bold,PingFang-SC;
-        background: #F01818;
-        border-radius: 4px;
-        color: white;
-        text-align: center;
-        border: none;
-      }
+    .info-btn {
+      margin: 15px;
+      width: calc(100% - 30px);
+      height: 46px;
+      font-size: 18px;
+      font-weight: bold;
+      font-family: PingFang-SC-Bold, PingFang-SC;
+      background: #f01818;
+      border-radius: 4px;
+      color: white;
+      text-align: center;
+      border: none;
+    }
   }
 }
 </style>

@@ -15,7 +15,7 @@
     <p class="DrawMsg-content">奖品：日本资深堂美润护手霜100gX1</p>
     <div class="btnBox">
       <p @click="closeModal">去领取</p>
-      <p>炫耀一下</p>
+      <router-link :to="{name:'flaunt'}" tag="p">炫耀一下</router-link>
     </div>
     <div class="winperson">
       <h1>中奖名单</h1>
