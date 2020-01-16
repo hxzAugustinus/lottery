@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-16 09:07:33
+ * @LastEditTime : 2020-01-16 09:13:23
  -->
 <template>
   <div class="share-page">
@@ -18,7 +18,7 @@
         </section>
         <section class="goods">
           <div>
-            <span>我中奖了： </span>
+            <span>我中奖了：</span>
             <span>日本资深堂美润护手霜及纯手工面霜一盒</span>
           </div>
           <!-- 需要允许跨域 -->
@@ -35,13 +35,13 @@
         <img :src="imageFile" class="share_image" />
       </div>
       <div class="tip">
-        长按图片保存，发送至朋友圈，<br />
-        赶紧炫耀一下吧！
+        长按图片保存，发送至朋友圈，
+        <br />赶紧炫耀一下吧！
       </div>
     </template>
-    <van-loading class="loading" v-else size="24px" vertical>
-      图片生成中...
-    </van-loading>
+    <van-loading class="loading" v-else size="24px" vertical
+      >图片生成中...</van-loading
+    >
   </div>
 </template>
 

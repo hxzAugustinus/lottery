@@ -13,13 +13,13 @@
   >
     <p>
       为保证奖品能及时送达，请在抽奖前，请复制官方微信
-      <span>344vnjn</span> 在微信添加朋友，添加官方小助手，领取奖品。
+      <span>{{wechatNum}}</span> 在微信添加朋友，添加官方小助手，领取奖品。
     </p>
     <van-button
       size="large"
       round
       type="info"
-      v-clipboard:copy="wechatID"
+      v-clipboard:copy="wechatNum"
       v-clipboard:success="onCopy"
     >复制微信号</van-button>
   </van-dialog>
@@ -32,7 +32,8 @@ export default {
     showModel: {
       type: Boolean,
       default: false
-    }
+    },
+    wechatNum: {}
   },
   computed: {
     showmodel: {
