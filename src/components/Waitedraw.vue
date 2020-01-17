@@ -25,7 +25,7 @@
         <img
           v-for="(item, index) in imgList"
           :key="index"
-          :src="item"
+          :src="item.avatar"
           alt
           :onerror="defaultAvatar"
         />

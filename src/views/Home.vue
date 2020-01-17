@@ -24,21 +24,21 @@
       ></Raffle>
       <Waitedraw
         v-if="lotteryShow.showMsg"
-        :imgList="imgList"
-        :drawCode="drawCode"
+        :imgList="lotteryInfo.invite_users ? lotteryInfo.invite_users : ''"
+        :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
         :joinperson="goodsInfo.join_total"
       ></Waitedraw>
       <Winlottery
         v-if="lotteryShow.showWin"
         :winperson="winperson"
-        :drawCode="drawCode"
+        :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
         :joinperson="goodsInfo.join_total"
         @showmodel="showmodel"
       ></Winlottery>
       <Loselottery
         v-if="lotteryShow.showLose"
         :winperson="winperson"
-        :drawCode="drawCode"
+        :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
         :joinperson="goodsInfo.join_total"
         @showmodel="showmodel"
       ></Loselottery>
@@ -92,48 +92,7 @@ export default {
         status: false
       },
       imgList: [],
-      winperson: [
-        {
-          avatar: require("@/images/userimg.png"),
-          name: "是客服打",
-          drawCode: "234567"
-        },
-        {
-          avatar: require("@/images/userimg.png"),
-          name: "是客",
-          drawCode: "234567"
-        },
-        {
-          avatar: require("@/images/userimg.png"),
-          name: "是客打",
-          drawCode: "234567"
-        },
-        {
-          avatar: require("@/images/userimg.png"),
-          name: "是否离开过何时离开皇宫",
-          drawCode: "234567"
-        },
-        {
-          avatar: require("@/images/userimg.png"),
-          name: "了洒家分厘卡即使",
-          drawCode: "234567"
-        },
-        {
-          avatar: require("@/images/userimg.png"),
-          name: "是客服打",
-          drawCode: "234567"
-        },
-        {
-          avatar: require("@/images/userimg.png"),
-          name: "是客服打",
-          drawCode: "234567"
-        },
-        {
-          avatar: require("@/images/userimg.png"),
-          name: "是客服打",
-          drawCode: "234567"
-        }
-      ],
+      winperson: [],
       goodsInfo: {},
       lottery_info: {}
     };
