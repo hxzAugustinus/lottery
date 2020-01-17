@@ -46,14 +46,25 @@
         <p class="prizeBox-title">抽奖说明</p>
         <div class="content">
           <p>新春福利，限时抽奖活动</p>
-          <p>1.本次活动需添加活动微信“ {{goodsInfo.wechat}} ”才能获得抽奖资格和领取奖品。</p>
-          <p>2.添加活动微信“ {{goodsInfo.wechat}} ”可领取{{goodsInfo.title}}，共计{{goodsInfo.stock}}份，先到先得，送完即止。</p>
+          <p>
+            1.本次活动需添加活动微信“
+            {{ goodsInfo.wechat }} ”才能获得抽奖资格和领取奖品。
+          </p>
+          <p>
+            2.添加活动微信“ {{ goodsInfo.wechat }} ”可领取{{
+              goodsInfo.title
+            }}，共计{{ goodsInfo.stock }}份，先到先得，送完即止。
+          </p>
           <p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p>
           <p>4.本次活动100%真实有效，最终解释权归网上老年大学</p>
         </div>
       </div>
     </div>
-    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="goodsInfo.wechat"></wx-modal>
+    <wx-modal
+      :showModel="showModel"
+      @showmodel="showmodel"
+      :wechatNum="goodsInfo.wechat"
+    ></wx-modal>
   </div>
 </template>
 
@@ -136,32 +147,7 @@ export default {
     Loselottery
   },
   created() {
-    console.log(new Date().valueOf());
-    // let start_time = 1579074085,
-    //   time = new Date().valueOf();
-    console.log(
-      new Date() > new Date(1579074085 * 1000),
-      new Date(1579074085 * 1000)
-    );
     api.getGoods(0).then(res => {
-      res.goods = {
-        id: 1,
-        title: "奔驰GLB",
-        image:
-          "https://hwcdn.jinlingkeji.cn/uploads/images/9140f4a626bbb2c783a52ad0bc1c36e1.jpg",
-        desc: "奔驰GLB",
-        process_status: 0,
-        stock: 5,
-        type: 1,
-        wechat: "Vanson5201314",
-        join_total: 100,
-        status: 1,
-        start_time: 1579074085,
-        end_time: 1579276800,
-        add_id: 2,
-        edit_id: 2,
-        createtime: 1578909885
-      };
       this.showCom(res.lottery_info.lottery_status);
       res.goods.start_time = this.timestampTime(res.goods.start_time);
       this.goodsInfo = res.goods;
@@ -199,7 +185,6 @@ export default {
       this.showModel = val;
     },
     getdrawCode() {
-      console.log(1313123);
       if (this.drawCode > 0) return;
       api
         .lotteryJoinIn(this.goodsInfo.id)

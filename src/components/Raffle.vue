@@ -22,13 +22,17 @@
         <img src="@/images/redPakect.png" />
       </li>
     </div>
-    <p>{{starttime}} 自动开奖</p>
+    <p>{{ starttime }} 自动开奖</p>
     <img
-      :src=" acticon ?  require('@/images/drawBtnactive.png') :  require('@/images/drawBtn.png')"
+      :src="
+        acticon
+          ? require('@/images/drawBtnactive.png')
+          : require('@/images/drawBtn.png')
+      "
       alt
       @click="drawaction"
     />
-    <p>已有{{joinperson}}人参与</p>
+    <p>已有{{ joinperson }}人参与</p>
   </div>
 </template>
 <script>

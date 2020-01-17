@@ -30,17 +30,17 @@
       <div class="item-content">
         <div class="item-title">
           <span>奖品:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <span>{{detailItem.title}}</span>
+          <span>{{ detailItem.title }}</span>
         </div>
         <div class="item-text">
-          <span>{{detailItem.end_time}}</span>
+          <span>{{ detailItem.end_time }}</span>
           <span>&nbsp;自动开奖</span>
         </div>
       </div>
     </div>
     <div class="heng"></div>
     <Waitedraw
-      :imgList="lucky_users"
+      :imgList="invate_users"
       :drawCode="detailItem.exchange_code"
       :joinperson="detailItem.join_total"
       style="margin-top:0px;"
@@ -66,7 +66,11 @@
       @showmodel="showmodel"
       style="margin-top:0px;"
     ></Loselottery>
-    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="pre_goods.wechat"></wx-modal>
+    <wx-modal
+      :showModel="showModel"
+      @showmodel="showmodel"
+      :wechatNum="pre_goods.wechat"
+    ></wx-modal>
   </div>
 </template>
 
@@ -88,6 +92,7 @@ export default {
     return {
       detailItem: {},
       lucky_users: [],
+      invate_users: [],
       pre_goods: {},
       showModel: false
     };
@@ -102,6 +107,7 @@ export default {
       this.detailItem = res.record;
       this.lucky_users = res.lucky_users;
       this.pre_goods = res.pre_goods;
+      res.invate_users ? (this.invate_users = res.invate_users) : "";
     });
   },
   mounted() {},
