@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-16 09:13:23
+ * @LastEditTime : 2020-01-17 17:38:43
  -->
 <template>
   <div class="share-page">
@@ -9,23 +9,22 @@
       <div class="wrap">
         <section class="header">
           <div class="avator">
-            <img
-              src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK27aiaK27euzIBs2AtqvjQsc4Imx3gCmge8V9PTSgzSNHxmxFbq4UAGskdsZy15TovjRkBIyYcc6Q/132"
-              alt="用户头像"
-            />
+            <img :src="user.avatar" alt="用户头像" />
           </div>
-          <div>细水长流</div>
+          <div>{{ user.nickname }}</div>
         </section>
         <section class="goods">
           <div>
             <span>我中奖了：</span>
-            <span>日本资深堂美润护手霜及纯手工面霜一盒</span>
+            <span>{{ user.title }}</span>
           </div>
           <!-- 需要允许跨域 -->
-          <img :src="good_img" alt="奖品示意图" />
+          <img :src="user.image_base64" alt="奖品示意图" />
         </section>
         <section class="qrcode">
-          <div></div>
+          <div>
+            <img :src="Qrcode" alt="小程序码" />
+          </div>
           <div>长按识别小程序来【网上老年大学】试试运气</div>
         </section>
       </div>
@@ -46,16 +45,27 @@
 </template>
 
 <script>
+import http from "@/api/HomeApi.js";
 import html2canvas from "html2canvas";
 export default {
   data() {
     return {
       imageFile: "",
-      good_img: "base64"
+      Qrcode: "",
+      user: {}
     };
   },
   mounted() {
-    this.save();
+    Promise.all([
+      http.getQrcode(0),
+      http.getLatestRecord(this.$route.params.goodsId)
+    ]).then(res => {
+      this.Qrcode = res[0];
+      this.user = res[1] || {};
+      this.$nextTick(() => {
+        this.save();
+      });
+    });
   },
   methods: {
     async save() {
@@ -148,7 +158,9 @@ export default {
       > div:first-child {
         width: 5rem;
         height: 5rem;
-        background: goldenrod;
+        > img {
+          width: 100%;
+        }
       }
 
       > div:last-child {

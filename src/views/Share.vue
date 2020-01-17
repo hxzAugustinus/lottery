@@ -1,25 +1,22 @@
 <!--
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-15 18:43:00
+ * @LastEditTime : 2020-01-17 17:35:42
  -->
 <template>
   <div class="share-page">
     <article ref="capture" class="share-content">
       <section class="header">
         <div class="avator">
-          <img
-            src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK27aiaK27euzIBs2AtqvjQsc4Imx3gCmge8V9PTSgzSNHxmxFbq4UAGskdsZy15TovjRkBIyYcc6Q/132"
-            alt="用户头像"
-          />
+          <img :src="user.avatar" alt="用户头像" />
         </div>
-        <div>细水长流</div>
+        <div>{{ user.nickname }}</div>
         <div>邀请你帮忙助力抽奖</div>
       </section>
       <section class="goods">
         <!-- 需要允许跨域 -->
         <img :src="user.image_base64" alt="奖品示意图" />
-        <div>奖品：日本资深堂美润护手霜及纯手工面霜一盒</div>
+        <div>奖品：{{ user.title }}</div>
       </section>
       <section class="qrcode">
         <div>
@@ -56,11 +53,11 @@ export default {
   },
   mounted() {
     Promise.all([
-      http.getQrcode(this.$store.state.goodsId),
-      http.getLatestRecord(this.$store.state.goodsId)
+      http.getQrcode(this.$route.params.goodsId),
+      http.getLatestRecord(this.$route.params.goodsId)
     ]).then(res => {
       this.Qrcode = res[0];
-      this.user = res[1];
+      this.user = res[1] || {};
       this.$nextTick(() => {
         this.save();
       });
@@ -111,6 +108,7 @@ export default {
         height: 3.75rem;
         border-radius: 50%;
         overflow: hidden;
+        margin-bottom: 5px;
         > img {
           width: 100%;
           height: 100%;

@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-01-09 10:39:39
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-15 18:17:18
+ * @LastEditTime : 2020-01-17 17:17:20
  */
 import Vue from "vue";
 import Vuex from "vuex";
@@ -10,7 +10,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    uid: 915,
+    uid: 454,
     goodsId: 2
   },
   mutations: {
