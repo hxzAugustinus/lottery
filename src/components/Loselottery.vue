@@ -2,31 +2,35 @@
   <div class="DrawMsg">
     <p class="DrawMsg-title">抽奖信息</p>
     <div class="DrawMsg-conTitle">
-      <p>很遗憾，你未中奖！</p>
+      <p>{{status ? '很遗憾，你未中奖！' : '很遗憾，您来晚了！'}}</p>
       <p>
         <img src="@/images/person.png" alt />
         {{joinperson / 10000 > 1 ? (joinperson / 10000).toFixed(1) + "W" : joinperson }}
       </p>
     </div>
-    <div class="DrawMsg-num">
+    <div class="DrawMsg-num" v-if="status">
       <p>我的兑奖码</p>
       <p>{{drawCode}}</p>
     </div>
     <p class="DrawMsg-content">为您准备了如下福利</p>
     <div class="nextLottery">
-      <img src="@/images/hai.jpg" alt />
+      <img :src="preGoods.image" alt />
       <div class="nextLottery-content">
-        <p>奖品：日本资深堂美润护手霜100gX1</p>
-        <p>1月16日10:00开始抽奖</p>
+        <p>奖品：{{preGoods.title}}</p>
+        <p>{{preGoods.createtime}}开始抽奖</p>
       </div>
     </div>
     <div class="winperson">
       <h1>中奖名单</h1>
-      <div class="personCon">
-        <img :src="winperson.avatar" alt :onerror="defaultAvatar" />
+      <div class="personCon" v-for="(item, index) in winperson" :key="index">
+        <img
+          :src="item.avatar != null ? 'item.avatar' : require('@/images/defultImg.png')"
+          alt
+          :onerror="defaultAvatar"
+        />
         <div>
-          <p>{{winperson.name}}</p>
-          <p>兑奖码：{{winperson.drawCode}}</p>
+          <p>{{item.nickname}}</p>
+          <p>兑奖码：{{item.exchange_code}}</p>
         </div>
       </div>
     </div>
@@ -42,6 +46,10 @@ export default {
     },
     joinperson: {
       type: Number
+    },
+    status: {},
+    preGoods: {
+      type: Object
     }
   },
   data() {
@@ -142,6 +150,7 @@ export default {
       margin-right: 15px;
     }
     .nextLottery-content {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -150,6 +159,8 @@ export default {
         margin: 0;
       }
       p:nth-child(1) {
+        text-align: left;
+        width: 100%;
         font-size: 18px;
         font-weight: 500;
         color: rgba(51, 51, 51, 1);
@@ -188,6 +199,7 @@ export default {
       border-radius: 3px;
       display: flex;
       align-items: center;
+      margin-top: 15px;
       img {
         width: 48px;
         height: 48px;

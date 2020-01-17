@@ -15,7 +15,7 @@
           class="lottery-item"
           v-for="(item,index) in drawList"
           :key="index"
-          @click="toDetail(item.id, item.status)"
+          @click="toDetail(item.id)"
         >
           <div class="item-img">
             <img :src="item.image" alt />
@@ -63,7 +63,8 @@ import api from "@/api/LotteryApi.js";
 export default {
   data() {
     return {
-      drawList: []
+      drawList: [],
+      scrollTop: 0
     };
   },
   created() {
@@ -74,9 +75,10 @@ export default {
       this.drawList = res;
     });
   },
+  mounted() {},
   methods: {
-    toDetail: function(id, status) {
-      this.$router.push({ name: "detail", query: { id, status } });
+    toDetail: function(id) {
+      this.$router.push({ name: "detail", query: { id } });
     },
     timestampToTime(timestamp) {
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000

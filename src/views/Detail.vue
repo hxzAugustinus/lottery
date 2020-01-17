@@ -8,19 +8,19 @@
     <div class="detail-item">
       <div class="item-img">
         <img :src="detailItem.image" alt />
-        <div class="detail-state" v-if="status == 0">
+        <div class="detail-state" v-if="detailItem.status == 0">
           <div>
             <span>待开奖</span>
           </div>
           <img src="@/images/lottery-ing.png" alt />
         </div>
-        <div class="detail-state" v-if="status == -1">
+        <div class="detail-state" v-if="detailItem.status == -1">
           <div>
             <span>未中奖</span>
           </div>
           <img src="@/images/lottery-over.png" alt />
         </div>
-        <div class="detail-state" v-if="status == 1">
+        <div class="detail-state" v-if="detailItem.status == 1">
           <div>
             <span>已中奖</span>
           </div>
@@ -44,37 +44,67 @@
       :drawCode="detailItem.exchange_code"
       :joinperson="detailItem.join_total"
       style="margin-top:0px;"
+      v-if="detailItem.status == 0"
     ></Waitedraw>
+    <Winlottery
+      :winperson="lucky_users"
+      :drawCode="detailItem.exchange_code"
+      :joinperson="detailItem.join_total"
+      :goodsTitle="detailItem.title"
+      :goodsId="detailItem.id"
+      @showmodel="showmodel"
+      style="margin-top:0px;"
+      v-if="detailItem.status == 1"
+    ></Winlottery>
+    <Loselottery
+      v-if="detailItem.status == -1"
+      :winperson="lucky_users"
+      :drawCode="detailItem.exchange_code"
+      :joinperson="detailItem.join_total"
+      status="1"
+      :preGoods="pre_goods"
+      @showmodel="showmodel"
+      style="margin-top:0px;"
+    ></Loselottery>
+    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="pre_goods.wechat"></wx-modal>
   </div>
 </template>
 
 <script>
 import api from "@/api/LotteryApi.js";
 import Waitedraw from "@/components/Waitedraw.vue";
+import Winlottery from "@/components/Winlottery.vue";
+import WxModal from "@/components/WxModal.vue";
+import Loselottery from "@/components/Loselottery.vue";
+
 export default {
   components: {
-    Waitedraw
+    Waitedraw,
+    Winlottery,
+    Loselottery,
+    WxModal
   },
   data() {
     return {
       detailItem: {},
       lucky_users: [],
-      pre_goods: {}
+      pre_goods: {},
+      showModel: false
     };
   },
   created() {
     this.status = this.$route.query.status;
     api.getRecordById(this.$route.query.id).then(res => {
       res.record.end_time = this.timestampToTime(res.record.end_time);
+      res.pre_goods.createtime = this.timestampTime(res.pre_goods.createtime);
       res.record.exchange_code = Number(res.record.exchange_code);
+      res.lucky_users = this.nickname(res.lucky_users);
       this.detailItem = res.record;
       this.lucky_users = res.lucky_users;
       this.pre_goods = res.pre_goods;
     });
   },
-  mounted() {
-    this.detailItem = JSON.parse(localStorage.getItem("lottary-item"));
-  },
+  mounted() {},
   methods: {
     timestampToTime(timestamp) {
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -87,6 +117,41 @@ export default {
       var h = date.getHours() + ":";
       var m = date.getMinutes();
       return Y + M + D + h + m;
+    },
+    timestampTime(timestamp) {
+      var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var M = date.getMonth() + 1 + "月";
+      var D = date.getDate() + "日";
+      var h = date.getHours() + ":";
+      var m = date.getMinutes();
+      return M + D + h + m;
+    },
+    nickname(name) {
+      name.forEach(item => {
+        if (item.nickname != null) {
+          if (item.nickname.length - 2 > 0) {
+            let num = "";
+            for (let i = 0; i < item.nickname.length - 2; i++) {
+              num = num + "*";
+            }
+            item.nickname =
+              item.nickname.substring(0, 1) +
+              num +
+              item.nickname.substring(item.nickname.length - 1);
+          } else {
+            item.nickname = item.nickname.substring(0, 1) + "*";
+          }
+        } else {
+          item.nickname = "**";
+        }
+      });
+      return name;
+    },
+    showmodel(val) {
+      this.showModel = val;
+    },
+    closeModal() {
+      this.showModel = true;
     }
   }
 };
@@ -250,6 +315,16 @@ export default {
       color: white;
       text-align: center;
       border: none;
+    }
+  }
+  .van-dialog {
+    padding: 0 27px 30px 27px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    .van-dialog__header {
+      font-size: 20px;
+      font-weight: 600;
+      color: rgba(51, 51, 51, 1);
     }
   }
 }

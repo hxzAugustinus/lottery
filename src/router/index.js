@@ -37,7 +37,7 @@ const routes = [
     }
   },
   {
-    path: "/share",
+    path: "/share/:goodsId",
     name: "share",
     component: () =>
       import(/* webpackChunkName: "share" */ "../views/Share.vue"),
@@ -46,7 +46,7 @@ const routes = [
     }
   },
   {
-    path: "/flaunt",
+    path: "/flaunt/:goodsId",
     name: "flaunt",
     component: () =>
       import(/* webpackChunkName: "flaunt" */ "../views/Flaunt.vue"),

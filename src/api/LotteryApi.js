@@ -24,5 +24,13 @@ export default {
      */
     getRecordById(record_id) {
         return Vue.axios.get("/lottery/getRecordById?record_id=" + record_id);
+    },
+    /**
+     * @description: 获取用户参与抽奖详情
+     * @param {int} goods_id
+     * @return: promise
+     */
+    getGoods(goods_id) {
+        return Vue.axios.get("/lottery/getGoods?goods_id=" + goods_id);
     }
 };

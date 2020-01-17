@@ -5,13 +5,18 @@
  -->
 <template>
   <div class="award-cop">
-    <img src="@/images/domoimg.png" />
-    <p>奖品：日本资深堂美润护手霜及纯手工面霜一盒</p>
+    <img :src="img" />
+    <p>奖品：{{title}}</p>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    img: {},
+    title: {}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -20,9 +25,11 @@ export default {};
   padding-bottom: 15px;
   background: #fff;
   border-radius: 10px;
+  border-radius: 10px 10px 0px 0px;
   img {
     width: 100%;
     height: 250px;
+    border-radius: 10px 10px 0px 0px;
   }
   p {
     margin: 14px 15px 0 15px;

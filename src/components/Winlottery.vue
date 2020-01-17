@@ -12,18 +12,22 @@
       <p>我的兑奖码</p>
       <p>{{drawCode}}</p>
     </div>
-    <p class="DrawMsg-content">奖品：日本资深堂美润护手霜100gX1</p>
+    <p class="DrawMsg-content">奖品：{{goodsTitle}}</p>
     <div class="btnBox">
       <p @click="closeModal">去领取</p>
-      <router-link :to="{name:'flaunt'}" tag="p">炫耀一下</router-link>
+      <router-link :to="{name:'flaunt',params:{goodsId}}" tag="p">炫耀一下</router-link>
     </div>
     <div class="winperson">
       <h1>中奖名单</h1>
       <div class="personCon" v-for="(item, index) in winperson" :key="index">
-        <img :src="item.avatar" alt :onerror="defaultAvatar" />
+        <img
+          :src="item.avatar != null ? 'item.avatar' : require('@/images/defultImg.png')"
+          alt
+          :onerror="defaultAvatar"
+        />
         <div>
-          <p>{{item.name}}</p>
-          <p>兑奖码：{{item.drawCode}}</p>
+          <p>{{item.nickname}}</p>
+          <p>兑奖码：{{item.exchange_code}}</p>
         </div>
       </div>
     </div>
@@ -39,7 +43,11 @@ export default {
     },
     joinperson: {
       type: Number
-    }
+    },
+    goodsTitle: {
+      type: String
+    },
+    goodsId: {}
   },
   data() {
     return {

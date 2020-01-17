@@ -11,7 +11,7 @@
       <span></span>
     </div>
     <div class="contariner">
-      <award></award>
+      <award :img="goodsInfo.image" :title="goodsInfo.title"></award>
       <Raffle
         @close-modal="closeModal"
         :drawFirst="drawFirst"
@@ -45,15 +45,14 @@
         <p class="prizeBox-title">抽奖说明</p>
         <div class="content">
           <p>新春福利，限时抽奖活动</p>
-          <p>1.本次活动需添加活动微信“ {{goodsContent.wechatNum}} ”才能获得抽奖资格和领取奖品。</p>
-          <p>2.添加活动微信“ {{goodsContent.wechatNum}} ”可领取{{goodsContent.goodsName}}，共计{{goodsContent.goodsNum}}份，先到先得，送完即止。</p>
+          <p>1.本次活动需添加活动微信“ {{goodsInfo.wechat}} ”才能获得抽奖资格和领取奖品。</p>
+          <p>2.添加活动微信“ {{goodsInfo.wechat}} ”可领取{{goodsInfo.title}}，共计{{goodsInfo.stock}}份，先到先得，送完即止。</p>
           <p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p>
           <p>4.本次活动100%真实有效，最终解释权归网上老年大学</p>
         </div>
       </div>
     </div>
     <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="goodsContent.wechatNum"></wx-modal>
-    <Overlay :Overlay="showOverlay" @showOverlay="showoverlay"></Overlay>
   </div>
 </template>
 
@@ -62,7 +61,6 @@ import Award from "@/components/Award";
 import Raffle from "@/components/Raffle.vue";
 import WxModal from "@/components/WxModal.vue";
 import Waitedraw from "@/components/Waitedraw.vue";
-import Overlay from "@/components/Overlay.vue";
 import Winlottery from "@/components/Winlottery.vue";
 import Loselottery from "@/components/Loselottery.vue";
 import api from "@/api/LotteryApi.js";
@@ -79,7 +77,8 @@ export default {
         showDraw: true,
         showMsg: false,
         showWin: false,
-        showLose: false
+        showLose: false,
+        status: false
       },
       showOverlay: false,
       imgList: [require("@/images/userimg.png"), "", ""],
@@ -129,7 +128,9 @@ export default {
         wechatNum: "jidx002",
         goodsNum: "200",
         goodsName: "鼠宝宝布偶"
-      }
+      },
+      goodsInfo: {},
+      lottery_info: {}
     };
   },
   components: {
@@ -137,9 +138,33 @@ export default {
     Raffle,
     WxModal,
     Waitedraw,
-    Overlay,
     Winlottery,
     Loselottery
+  },
+  created() {
+    api.getGoods().then(res => {
+      res.goods = {
+        id: 1,
+        title: "奔驰GLB",
+        image:
+          "https://hwcdn.jinlingkeji.cn/uploads/images/9140f4a626bbb2c783a52ad0bc1c36e1.jpg",
+        desc: "奔驰GLB",
+        process_status: 0,
+        stock: 5,
+        type: 1,
+        wechat: "Vanson5201314",
+        join_total: 100,
+        status: 1,
+        start_time: 1579074085,
+        end_time: 1579276800,
+        add_id: 2,
+        edit_id: 2,
+        createtime: 1578909885
+      };
+      this.showCom(res.lottery_info.lottery_status);
+      this.goodsInfo = res.goods;
+      this.lotteryInfo = res.lottery_info;
+    });
   },
   mounted() {
     let winperson = this.winperson;
@@ -158,11 +183,6 @@ export default {
       }
     });
     this.winperson = winperson;
-    var curTime = new Date();
-    //把字符串格式转化为日期类
-    console.log(curTime);
-    // var starttime = new Date(Date.parse(begintime));
-    // var endtime = new Date(Date.pares(endtime));
   },
   methods: {
     closeModal() {
@@ -197,8 +217,29 @@ export default {
         this.showModel = false;
       }, 3000);
     },
-    showoverlay() {
-      // this.showOverlay ? (this.showOverlay = false) : (this.showOverlay = true);
+    showCom(status) {
+      switch (status) {
+        case -2:
+          this.lotteryShow.showDraw = true;
+          break;
+        case -1:
+          this.lotteryShow.showDraw = false;
+          this.lotteryShow.showLose = true;
+          break;
+        case 0:
+          this.lotteryShow.showDraw = false;
+          this.lotteryShow.showMsg = true;
+          break;
+        case 1:
+          this.lotteryShow.showDraw = false;
+          this.lotteryShow.showWin = true;
+          break;
+        case 2:
+          this.lotteryShow.showDraw = false;
+          this.lotteryShow.showLose = true;
+          this.lotteryShow.status = true;
+          break;
+      }
     }
   }
 };
@@ -283,7 +324,6 @@ export default {
         font-weight: 500;
         color: rgba(102, 102, 102, 1);
         line-height: 27px;
-        text-align: justify;
       }
     }
   }
