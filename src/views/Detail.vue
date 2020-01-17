@@ -129,17 +129,15 @@ export default {
     nickname(name) {
       name.forEach(item => {
         if (item.nickname != null) {
-          if (item.nickname.length - 2 > 0) {
-            let num = "";
-            for (let i = 0; i < item.nickname.length - 2; i++) {
+          let arr = Array.from(item.nickname),
+            num = "";
+          if (arr.length - 2 > 0) {
+            for (let i = 0; i < arr.length - 2; i++) {
               num = num + "*";
             }
-            item.nickname =
-              item.nickname.substring(0, 1) +
-              num +
-              item.nickname.substring(item.nickname.length - 1);
+            item.nickname = arr[0] + num + arr[arr.length - 1];
           } else {
-            item.nickname = item.nickname.substring(0, 1) + "*";
+            item.nickname = arr[0] + "*";
           }
         } else {
           item.nickname = "**";

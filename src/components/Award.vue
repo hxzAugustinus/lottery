@@ -25,7 +25,6 @@ export default {
   padding-bottom: 15px;
   background: #fff;
   border-radius: 10px;
-  border-radius: 10px 10px 0px 0px;
   img {
     width: 100%;
     height: 250px;

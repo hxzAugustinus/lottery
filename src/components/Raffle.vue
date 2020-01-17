@@ -22,13 +22,13 @@
         <img src="@/images/redPakect.png" />
       </li>
     </div>
-    <p>1月8日10:00 自动开奖</p>
+    <p>{{starttime}} 自动开奖</p>
     <img
       :src=" acticon ?  require('@/images/drawBtnactive.png') :  require('@/images/drawBtn.png')"
       alt
       @click="drawaction"
     />
-    <p>已有11838人参与</p>
+    <p>已有{{joinperson}}人参与</p>
   </div>
 </template>
 <script>
@@ -40,7 +40,9 @@ export default {
     },
     drawCode: {
       type: Number
-    }
+    },
+    joinperson: {},
+    starttime: {}
   },
   data() {
     return {
@@ -90,7 +92,7 @@ export default {
           setTimeout(() => {
             this.toOrderNum(this.drawCode); // 这里输入数字即可调用
             this.$emit("showMsg");
-          }, 200);
+          }, 100);
         }
         this.acticon = false;
       }, 200);

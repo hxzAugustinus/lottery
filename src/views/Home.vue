@@ -17,28 +17,29 @@
         :drawFirst="drawFirst"
         @showMsg="showmsg"
         @getdrawCode="getdrawCode"
+        :joinperson="goodsInfo.join_total"
         :drawCode="drawCode"
+        :starttime="goodsInfo.start_time"
         v-if="lotteryShow.showDraw"
       ></Raffle>
       <Waitedraw
         v-if="lotteryShow.showMsg"
         :imgList="imgList"
         :drawCode="drawCode"
-        :joinperson="joinperson"
-        @showOverlay="showoverlay"
+        :joinperson="goodsInfo.join_total"
       ></Waitedraw>
       <Winlottery
         v-if="lotteryShow.showWin"
         :winperson="winperson"
         :drawCode="drawCode"
-        :joinperson="joinperson"
+        :joinperson="goodsInfo.join_total"
         @showmodel="showmodel"
       ></Winlottery>
       <Loselottery
         v-if="lotteryShow.showLose"
         :winperson="winperson"
         :drawCode="drawCode"
-        :joinperson="joinperson"
+        :joinperson="goodsInfo.join_total"
         @showmodel="showmodel"
       ></Loselottery>
       <div class="prizeBox">
@@ -52,7 +53,7 @@
         </div>
       </div>
     </div>
-    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="goodsContent.wechatNum"></wx-modal>
+    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="goodsInfo.wechat"></wx-modal>
   </div>
 </template>
 
@@ -70,7 +71,6 @@ export default {
   data() {
     return {
       drawCode: 0,
-      joinperson: 113856,
       showModel: false,
       drawFirst: true,
       lotteryShow: {
@@ -80,8 +80,7 @@ export default {
         showLose: false,
         status: false
       },
-      showOverlay: false,
-      imgList: [require("@/images/userimg.png"), "", ""],
+      imgList: [],
       winperson: [
         {
           avatar: require("@/images/userimg.png"),
@@ -124,11 +123,6 @@ export default {
           drawCode: "234567"
         }
       ],
-      goodsContent: {
-        wechatNum: "jidx002",
-        goodsNum: "200",
-        goodsName: "鼠宝宝布偶"
-      },
       goodsInfo: {},
       lottery_info: {}
     };
@@ -142,7 +136,14 @@ export default {
     Loselottery
   },
   created() {
-    api.getGoods().then(res => {
+    console.log(new Date().valueOf());
+    // let start_time = 1579074085,
+    //   time = new Date().valueOf();
+    console.log(
+      new Date() > new Date(1579074085 * 1000),
+      new Date(1579074085 * 1000)
+    );
+    api.getGoods(0).then(res => {
       res.goods = {
         id: 1,
         title: "奔驰GLB",
@@ -162,6 +163,7 @@ export default {
         createtime: 1578909885
       };
       this.showCom(res.lottery_info.lottery_status);
+      res.goods.start_time = this.timestampTime(res.goods.start_time);
       this.goodsInfo = res.goods;
       this.lotteryInfo = res.lottery_info;
     });
@@ -197,9 +199,10 @@ export default {
       this.showModel = val;
     },
     getdrawCode() {
+      console.log(1313123);
       if (this.drawCode > 0) return;
       api
-        .lotteryJoinIn(this.$store.state.goodsId)
+        .lotteryJoinIn(this.goodsInfo.id)
         .then(res => {
           if (res.exchange_code) {
             this.drawCode = Number(res.exchange_code);
@@ -240,6 +243,14 @@ export default {
           this.lotteryShow.status = true;
           break;
       }
+    },
+    timestampTime(timestamp) {
+      var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var M = date.getMonth() + 1 + "月";
+      var D = date.getDate() + "日";
+      var h = date.getHours() + ":";
+      var m = date.getMinutes();
+      return M + D + h + m;
     }
   }
 };
