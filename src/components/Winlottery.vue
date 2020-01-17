@@ -5,29 +5,39 @@
       <p>恭喜，你已中奖！</p>
       <p>
         <img src="@/images/person.png" alt />
-        {{joinperson / 10000 > 1 ? (joinperson / 10000).toFixed(1) + "W" : joinperson }}
+        {{
+          joinperson / 10000 > 1
+            ? (joinperson / 10000).toFixed(1) + "W"
+            : joinperson
+        }}
       </p>
     </div>
     <div class="DrawMsg-num">
       <p>我的兑奖码</p>
-      <p>{{drawCode}}</p>
+      <p>{{ drawCode }}</p>
     </div>
-    <p class="DrawMsg-content">奖品：{{goodsTitle}}</p>
+    <p class="DrawMsg-content">奖品：{{ goodsTitle }}</p>
     <div class="btnBox">
       <p @click="closeModal">去领取</p>
-      <router-link :to="{name:'flaunt',params:{goodsId}}" tag="p">炫耀一下</router-link>
+      <router-link :to="{ name: 'flaunt', params: { goodsId } }" tag="p"
+        >炫耀一下</router-link
+      >
     </div>
     <div class="winperson">
       <h1>中奖名单</h1>
       <div class="personCon" v-for="(item, index) in winperson" :key="index">
         <img
-          :src="item.avatar != null ? 'item.avatar' : require('@/images/defultImg.png')"
+          :src="
+            item.avatar != null
+              ? 'item.avatar'
+              : require('@/images/defultImg.png')
+          "
           alt
           :onerror="defaultAvatar"
         />
         <div>
-          <p>{{item.nickname}}</p>
-          <p>兑奖码：{{item.exchange_code}}</p>
+          <p>{{ item.nickname }}</p>
+          <p>兑奖码：{{ item.exchange_code }}</p>
         </div>
       </div>
     </div>

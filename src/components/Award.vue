@@ -6,7 +6,7 @@
 <template>
   <div class="award-cop">
     <img :src="img" />
-    <p>奖品：{{title}}</p>
+    <p>奖品：{{ title }}</p>
   </div>
 </template>
 

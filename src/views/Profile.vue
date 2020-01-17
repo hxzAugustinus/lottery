@@ -13,7 +13,7 @@
       <div class="lottery-list">
         <div
           class="lottery-item"
-          v-for="(item,index) in drawList"
+          v-for="(item, index) in drawList"
           :key="index"
           @click="toDetail(item.id)"
         >
@@ -40,14 +40,17 @@
             <div class="over" v-if="item.state == 0"></div>
           </div>
           <div
-            :class="['item-content', {'item-content-over' : item.status ==1 || item.status == -1}]"
+            :class="[
+              'item-content',
+              { 'item-content-over': item.status == 1 || item.status == -1 }
+            ]"
           >
             <div class="item-title">
               <span>奖品:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-              <span>{{item.title}}</span>
+              <span>{{ item.title }}</span>
             </div>
             <div class="item-text">
-              <span>{{item.end_time}}</span>
+              <span>{{ item.end_time }}</span>
               <span>&nbsp;自动开奖</span>
             </div>
           </div>

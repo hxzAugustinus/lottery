@@ -2,35 +2,43 @@
   <div class="DrawMsg">
     <p class="DrawMsg-title">抽奖信息</p>
     <div class="DrawMsg-conTitle">
-      <p>{{status ? '很遗憾，你未中奖！' : '很遗憾，您来晚了！'}}</p>
+      <p>{{ status ? "很遗憾，你未中奖！" : "很遗憾，您来晚了！" }}</p>
       <p>
         <img src="@/images/person.png" alt />
-        {{joinperson / 10000 > 1 ? (joinperson / 10000).toFixed(1) + "W" : joinperson }}
+        {{
+          joinperson / 10000 > 1
+            ? (joinperson / 10000).toFixed(1) + "W"
+            : joinperson
+        }}
       </p>
     </div>
     <div class="DrawMsg-num" v-if="status">
       <p>我的兑奖码</p>
-      <p>{{drawCode}}</p>
+      <p>{{ drawCode }}</p>
     </div>
     <p class="DrawMsg-content">为您准备了如下福利</p>
     <div class="nextLottery">
       <img :src="preGoods.image" alt />
       <div class="nextLottery-content">
-        <p>奖品：{{preGoods.title}}</p>
-        <p>{{preGoods.createtime}}开始抽奖</p>
+        <p>奖品：{{ preGoods.title }}</p>
+        <p>{{ preGoods.createtime }}开始抽奖</p>
       </div>
     </div>
     <div class="winperson">
       <h1>中奖名单</h1>
       <div class="personCon" v-for="(item, index) in winperson" :key="index">
         <img
-          :src="item.avatar != null ? 'item.avatar' : require('@/images/defultImg.png')"
+          :src="
+            item.avatar != null
+              ? 'item.avatar'
+              : require('@/images/defultImg.png')
+          "
           alt
           :onerror="defaultAvatar"
         />
         <div>
-          <p>{{item.nickname}}</p>
-          <p>兑奖码：{{item.exchange_code}}</p>
+          <p>{{ item.nickname }}</p>
+          <p>兑奖码：{{ item.exchange_code }}</p>
         </div>
       </div>
     </div>
