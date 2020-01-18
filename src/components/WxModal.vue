@@ -67,6 +67,8 @@ export default {
 p {
   text-align: left;
   word-break: break-all;
+  line-height: 28px;
+  font-size: 18px;
   span {
     padding: 0 12px;
     background: rgba(255, 229, 229, 1);
@@ -81,5 +83,6 @@ p {
   height: 44px;
   background: rgba(240, 24, 24, 1);
   border-radius: 3px;
+  font-size: 18px;
 }
 </style>

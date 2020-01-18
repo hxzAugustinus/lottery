@@ -46,8 +46,9 @@
           :joinperson="goodsInfo.join_total"
           :winperson="lotteryInfo.lucky_users"
           :goodsTitle="goodsInfo.title"
-          :preGoods="lotteryInfo.pre_goods"
+          :preGoods="lotteryInfo.pre_goods ? lotteryInfo.pre_goods : {}"
           :status="lotteryShow.status"
+          :wechatNum="goodsInfo.wechat"
           @showmodel="showmodel"
           @getGoods="getGoods"
         ></Loselottery>
@@ -151,11 +152,15 @@ export default {
         .then(res => {
           if (res.exchange_code) {
             this.drawCode = Number(res.exchange_code);
-            console.log(this.drawCode);
           }
         })
-        .catch(() => {
+        .catch(err => {
           // alert("网络开了小差,稍后再试哦！");
+          if (err.code == 0) {
+            this.$toast({
+              message: err.msg
+            });
+          }
         });
     },
     showmsg() {
@@ -196,13 +201,15 @@ export default {
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
       var M = date.getMonth() + 1 + "月";
       var D = date.getDate() + "日";
-      var h = date.getHours() + ":";
-      var m = date.getMinutes();
+      var h =
+        (date.getHours() > 10 ? date.getHours() : "0" + date.getHours()) + ":";
+      var m =
+        date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
       return M + D + h + m;
     },
     getGoods() {
       return api.getGoods(this.$store.state.goodsId).then(res => {
-        this.showCom(res.lottery_info.lottery_status);
+        // this.showCom(res.lottery_info.lottery_status);
         res.goods.end_time = this.timestampTime(res.goods.end_time);
         res.goods.join_total = this.tow(res.goods.join_total);
         res.lottery_info.lucky_users
@@ -322,8 +329,8 @@ export default {
       }
       .content {
         text-align: left;
-        font-size: 16px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 400;
         color: rgba(102, 102, 102, 1);
         line-height: 27px;
       }

@@ -16,8 +16,11 @@
       <p>我的兑奖码</p>
       <p>{{ drawCode }}</p>
     </div>
-    <p class="DrawMsg-content">为您准备了如下福利</p>
-    <div class="nextLottery">
+    <p class="msg">
+      活动已结束，请添加官方客服人员微信号【{{ wechatNum }}】，关注后续活动哦～
+    </p>
+    <p class="DrawMsg-content" v-if="preGoods.image">为您准备了如下福利</p>
+    <div class="nextLottery" v-if="preGoods.image">
       <img :src="preGoods.image" alt />
       <div class="nextLottery-content">
         <p>奖品：{{ preGoods.title }}</p>
@@ -30,7 +33,7 @@
         </p>
       </div>
     </div>
-    <div class="winperson">
+    <div class="winperson" :style="!preGoods.image ? 'margin-top:0px' : ''">
       <h1>中奖名单</h1>
       <div class="personCon" v-for="(item, index) in winperson" :key="index">
         <img
@@ -64,7 +67,8 @@ export default {
     status: {},
     preGoods: {
       type: Object
-    }
+    },
+    wechatNum: {}
   },
   data() {
     return {
@@ -150,7 +154,7 @@ export default {
     p:nth-child(2) {
       padding: 2px 10px;
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 400;
       color: rgba(153, 153, 153, 1);
       background: rgba(247, 247, 247, 1);
       border-radius: 2px;
@@ -174,7 +178,7 @@ export default {
       margin: 0;
     }
     p:nth-child(1) {
-      font-weight: 500;
+      font-weight: 400;
       color: rgba(51, 51, 51, 1);
       margin-right: 5px;
     }
@@ -186,7 +190,7 @@ export default {
   }
   .DrawMsg-content {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
     color: rgba(51, 51, 51, 1);
     margin: 9px 0 15px 0;
   }
@@ -213,7 +217,7 @@ export default {
         text-align: left;
         width: 100%;
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         color: rgba(51, 51, 51, 1);
         line-height: 29px;
         display: -webkit-box;
@@ -262,16 +266,21 @@ export default {
       }
       p:nth-child(1) {
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         color: rgba(51, 51, 51, 1);
       }
       p:nth-child(2) {
         margin-top: 3px;
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 400;
         color: rgba(102, 102, 102, 1);
       }
     }
+  }
+  .msg {
+    margin: 10px 0 0 0;
+    font-size: 18px;
+    line-height: 27px;
   }
 }
 </style>

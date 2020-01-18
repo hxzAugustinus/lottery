@@ -13,18 +13,20 @@ import wx from "jweixin-module";
 Vue.prototype.$wx = wx;
 Vue.prototype.$utils = utils;
 
-import { Tab, Tabs, Button, Loading, Overlay, Dialog } from "vant";
+import { Tab, Tabs, Button, Loading, Overlay, Dialog, Toast } from "vant";
 Vue.use(Tab)
   .use(Tabs)
   .use(Button)
   .use(Loading)
   .use(Overlay)
-  .use(Dialog);
+  .use(Dialog)
+  .use(Toast);
 
 import VueClipboard from "vue-clipboard2";
 Vue.use(VueClipboard);
 
 Vue.config.productionTip = false;
+Vue.prototype.$toast = Toast;
 
 /* 手机查看console */
 if (process.env.NODE_ENV !== "development") {

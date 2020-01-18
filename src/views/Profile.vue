@@ -57,6 +57,7 @@
         </div>
       </div>
     </div>
+    <div class="over" v-if="drawList.length > 0"></div>
   </div>
 </template>
 
@@ -117,13 +118,13 @@ export default {
       width: 233px;
       height: 157px;
       margin-bottom: 25px;
+      margin-top: -190px;
     }
     p {
       margin: 0;
       text-align: center;
       font-size: 18px;
-      font-family: PingFang-SC-Medium, PingFang-SC;
-      font-weight: 500;
+      font-weight: 400;
       color: rgba(102, 102, 102, 1);
     }
   }
@@ -143,6 +144,7 @@ export default {
           height: 250px;
           margin-bottom: 15px;
           border-radius: 5px;
+          border: 1px solid #ededed;
           overflow: hidden;
           position: relative;
           img {
@@ -202,7 +204,7 @@ export default {
           .item-text {
             height: 25px;
             font-size: 18px;
-            font-weight: 500;
+            font-weight: 400;
             line-height: 25px;
           }
         }
@@ -211,6 +213,11 @@ export default {
         }
       }
     }
+  }
+  .over {
+    width: 100%;
+    height: 45px;
+    background: rgba(247, 247, 247, 1);
   }
 }
 </style>
