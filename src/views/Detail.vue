@@ -127,16 +127,20 @@ export default {
           ? "0" + (date.getMonth() + 1)
           : date.getMonth() + 1) + "-";
       var D = date.getDate() + " ";
-      var h = date.getHours() + ":";
-      var m = date.getMinutes();
+      var h =
+        (date.getHours() > 10 ? date.getHours() : "0" + date.getHours()) + ":";
+      var m =
+        date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
       return Y + M + D + h + m;
     },
     timestampTime(timestamp) {
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
       var M = date.getMonth() + 1 + "月";
       var D = date.getDate() + "日";
-      var h = date.getHours() + ":";
-      var m = date.getMinutes();
+      var h =
+        (date.getHours() > 10 ? date.getHours() : "0" + date.getHours()) + ":";
+      var m =
+        date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
       return M + D + h + m;
     },
     nickname(name) {
@@ -241,7 +245,7 @@ export default {
       .item-text {
         height: 25px;
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         color: rgba(51, 51, 51, 1);
         line-height: 25px;
       }
@@ -285,7 +289,7 @@ export default {
           span {
             font-size: 16px;
             font-family: PingFang-SC-Medium, PingFang-SC;
-            font-weight: 500;
+            font-weight: 400;
             color: rgba(153, 153, 153, 1);
             margin-bottom: 2px;
           }
@@ -298,7 +302,7 @@ export default {
       .my-coin {
         font-size: 18px;
         font-family: PingFang-SC-Medium, PingFang-SC;
-        font-weight: 500;
+        font-weight: 400;
         color: #333;
         line-height: 25px;
         span:last-child {
@@ -312,7 +316,7 @@ export default {
       .info-content {
         font-size: 18px;
         font-family: PingFang-SC-Medium, PingFang-SC;
-        font-weight: 500;
+        font-weight: 400;
         color: rgba(102, 102, 102, 1);
         line-height: 27px;
         margin-bottom: 10px;
@@ -332,15 +336,16 @@ export default {
       border: none;
     }
   }
-  .van-dialog {
-    padding: 0 27px 30px 27px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    .van-dialog__header {
-      font-size: 20px;
-      font-weight: 600;
-      color: rgba(51, 51, 51, 1);
-    }
+}
+.van-dialog {
+  padding: 0 27px 30px 27px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  .van-dialog__header {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(51, 51, 51, 1);
+    font-size: 20px;
   }
 }
 </style>

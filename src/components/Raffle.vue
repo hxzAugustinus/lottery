@@ -125,7 +125,7 @@ export default {
     z-index: 0;
   }
   img:nth-child(4) {
-    width: calc(100% - 25px);
+    width: calc(100% - 30px);
     height: 85px;
     position: relative;
     z-index: 5;
@@ -137,7 +137,7 @@ export default {
     background: rgba(226, 152, 0, 1);
     border-radius: 17px;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
     color: rgba(255, 255, 255, 1);
     position: relative;
     z-index: 5;
@@ -146,7 +146,7 @@ export default {
   }
   p:last-child {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 400;
     color: rgba(183, 63, 0, 1);
     position: relative;
     z-index: 5;
@@ -224,8 +224,8 @@ export default {
   .redpacet {
     flex: 1;
     margin: 0;
-    margin-right: 6px;
-    margin-left: 6px;
+    margin-right: 7px;
+    margin-left: 9px;
     line-height: 122px;
     img {
       width: 100%;

@@ -106,7 +106,7 @@ export default {
     p:nth-child(2) {
       padding: 2px 10px;
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 400;
       color: rgba(153, 153, 153, 1);
       background: rgba(247, 247, 247, 1);
       border-radius: 2px;
@@ -130,7 +130,7 @@ export default {
       margin: 0;
     }
     p:nth-child(1) {
-      font-weight: 500;
+      font-weight: 400;
       color: rgba(51, 51, 51, 1);
       margin-right: 5px;
     }
@@ -142,7 +142,7 @@ export default {
   }
   .DrawMsg-content {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
     color: rgba(51, 51, 51, 1);
     margin: 9px 0 15px 0;
   }
@@ -191,19 +191,20 @@ export default {
         width: 48px;
         height: 48px;
         margin-right: 15px;
+        border-radius: 50%;
       }
       p {
         margin: 0;
       }
       p:nth-child(1) {
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         color: rgba(51, 51, 51, 1);
       }
       p:nth-child(2) {
         margin-top: 3px;
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 400;
         color: rgba(102, 102, 102, 1);
       }
     }

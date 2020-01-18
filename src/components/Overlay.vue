@@ -71,7 +71,7 @@ export default {
       }
       p {
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         color: rgba(51, 51, 51, 1);
         margin-left: 10px;
       }
@@ -89,7 +89,7 @@ export default {
     background: #fff;
     text-align: center;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
     color: rgba(102, 102, 102, 1);
     overflow: hidden;
   }
