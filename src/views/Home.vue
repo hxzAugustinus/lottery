@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-09 10:53:54
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-09 16:14:03
+ * @LastEditTime : 2020-01-18 15:49:38
  -->
 <template>
   <div class="home">
@@ -25,7 +25,7 @@
       <Waitedraw
         v-if="lotteryShow.showMsg"
         :imgList="lotteryInfo.invite_users ? lotteryInfo.invite_users : ''"
-        :drawCode="drawCode > 0 ? drawCode :  lotteryInfo.exchange_code"
+        :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
         :joinperson="goodsInfo.join_total"
         :winperson="lotteryInfo.lucky_users"
       ></Waitedraw>
@@ -59,7 +59,7 @@
           </p>
           <p>
             2.添加活动微信“ {{ goodsInfo.wechat }} ”可领取{{
-            goodsInfo.title
+              goodsInfo.title
             }}，共计{{ goodsInfo.stock }}份，先到先得，送完即止。
           </p>
           <p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p>
@@ -67,7 +67,11 @@
         </div>
       </div>
     </div>
-    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="goodsInfo.wechat"></wx-modal>
+    <wx-modal
+      :showModel="showModel"
+      @showmodel="showmodel"
+      :wechatNum="goodsInfo.wechat"
+    ></wx-modal>
   </div>
 </template>
 
@@ -107,27 +111,6 @@ export default {
     Waitedraw,
     Winlottery,
     Loselottery
-  },
-  created() {
-    this.getGoods();
-  },
-  mounted() {
-    let winperson = this.winperson;
-    winperson.forEach(item => {
-      if (item.name.length - 2 > 0) {
-        let num = "";
-        for (let i = 0; i < item.name.length - 2; i++) {
-          num = num + "*";
-        }
-        item.name =
-          item.name.substring(0, 1) +
-          num +
-          item.name.substring(item.name.length - 1);
-      } else {
-        item.name = item.name.substring(0, 1) + "*";
-      }
-    });
-    this.winperson = winperson;
   },
   methods: {
     closeModal() {
@@ -231,6 +214,11 @@ export default {
     /**破万 */
     tow(num) {
       return num / 10000 > 1 ? (num = (num / 10000).toFixed(1) + "W") : num;
+    }
+  },
+  watch: {
+    "$store.state.uid"(newV) {
+      if (newV) this.getGoods();
     }
   }
 };

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-09 10:39:39
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-17 17:57:29
+ * @LastEditTime : 2020-01-18 15:37:13
  -->
 <template>
   <div id="app">
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  beforeMount() {
+  beforeCreate() {
     if (process.env.NODE_ENV == "development") {
       this.init();
     } else {
