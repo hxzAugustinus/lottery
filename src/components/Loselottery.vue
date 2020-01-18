@@ -16,7 +16,7 @@
       <p>我的兑奖码</p>
       <p>{{ drawCode }}</p>
     </div>
-    <p class="msg">
+    <p class="msg" v-if="!preGoods.image">
       活动已结束，请添加官方客服人员微信号【{{ wechatNum }}】，关注后续活动哦～
     </p>
     <p class="DrawMsg-content" v-if="preGoods.image">为您准备了如下福利</p>
