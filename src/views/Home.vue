@@ -194,40 +194,20 @@ export default {
       var m = date.getMinutes();
       return M + D + h + m;
     },
-    getGoods(type) {
-      if (type) {
-        api.getGoods(this.$store.state.goodsId).then(res => {
-          this.showCom(res.lottery_info.lottery_status);
-          res.goods.start_time = this.timestampTime(res.goods.start_time);
-          res.goods.join_total = this.tow(res.goods.join_total);
-          res.lottery_info.lucky_users
-            ? (res.lottery_info.lucky_users = this.nickname(
-                res.lottery_info.lucky_users
-              ))
-            : "";
-          res.lottery_info.exchange_code = Number(
-            res.lottery_info.exchange_code
-          );
-          this.goodsInfo = res.goods;
-          this.lotteryInfo = res.lottery_info;
-        });
-      } else {
-        api.getGoods(0).then(res => {
-          this.showCom(res.lottery_info.lottery_status);
-          res.goods.start_time = this.timestampTime(res.goods.start_time);
-          res.goods.join_total = this.tow(res.goods.join_total);
-          res.lottery_info.lucky_users
-            ? (res.lottery_info.lucky_users = this.nickname(
-                res.lottery_info.lucky_users
-              ))
-            : "";
-          res.lottery_info.exchange_code = Number(
-            res.lottery_info.exchange_code
-          );
-          this.goodsInfo = res.goods;
-          this.lotteryInfo = res.lottery_info;
-        });
-      }
+    getGoods() {
+      api.getGoods(this.$store.state.goodsId).then(res => {
+        this.showCom(res.lottery_info.lottery_status);
+        res.goods.start_time = this.timestampTime(res.goods.start_time);
+        res.goods.join_total = this.tow(res.goods.join_total);
+        res.lottery_info.lucky_users
+          ? (res.lottery_info.lucky_users = this.nickname(
+              res.lottery_info.lucky_users
+            ))
+          : "";
+        res.lottery_info.exchange_code = Number(res.lottery_info.exchange_code);
+        this.goodsInfo = res.goods;
+        this.lotteryInfo = res.lottery_info;
+      });
     },
     nickname(name) {
       name.forEach(item => {

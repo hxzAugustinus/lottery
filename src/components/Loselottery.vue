@@ -83,17 +83,17 @@ export default {
     },
     toLottery() {
       if (this.showTime) return;
-      console.log(this.$store.uid);
-      // if (this.$route.name == "home") {
-      //   this.$emit("getGoods", true);
-      // } else {
-      //   // let id = this.$store.uid,
-      //   // let goodsId = this.preGoods.id;
-      //   // this.$store.commit("setAuth", { goodsId });
-      //   this.$router.push({
-      //     name: "home"
-      //   });
-      // }
+      if (this.$route.name == "home") {
+        this.$emit("getGoods", true);
+      } else {
+        let uid = this.$store.state.uid,
+          goodsId = this.preGoods.id;
+        console.log(this.$store.state);
+        this.$store.commit("setAuth", { uid, goodsId });
+        this.$router.push({
+          name: "home"
+        });
+      }
     }
   }
 };
