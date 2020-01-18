@@ -30,7 +30,7 @@
         <img
           :src="
             item.avatar != null
-              ? 'item.avatar'
+              ? item.avatar
               : require('@/images/defultImg.png')
           "
           alt
@@ -82,16 +82,20 @@ export default {
       }
     },
     toLottery() {
+      let uid = this.$store.state.uid,
+        goodsId = this.preGoods.id;
       if (this.showTime) return;
       if (this.$route.name == "home") {
-        this.$emit("getGoods", true);
-      } else {
-        let uid = this.$store.state.uid,
-          goodsId = this.preGoods.id;
-        console.log(this.$store.state);
         this.$store.commit("setAuth", { uid, goodsId });
+        this.$emit("getGoods");
+      } else {
+        console.log(this.$store.state);
         this.$router.push({
-          name: "home"
+          name: "home",
+          query: {
+            uid,
+            goodsId
+          }
         });
       }
     }
@@ -237,6 +241,7 @@ export default {
         width: 48px;
         height: 48px;
         margin-right: 15px;
+        border-radius: 50%;
       }
       p {
         margin: 0;

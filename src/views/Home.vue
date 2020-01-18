@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-09 10:53:54
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-18 15:49:38
+ * @LastEditTime : 2020-01-18 15:55:05
  -->
 <template>
   <div class="home">
@@ -19,7 +19,7 @@
         @getdrawCode="getdrawCode"
         :joinperson="goodsInfo.join_total"
         :drawCode="drawCode"
-        :starttime="goodsInfo.start_time"
+        :starttime="goodsInfo.end_time"
         v-if="lotteryShow.showDraw"
       ></Raffle>
       <Waitedraw
@@ -28,6 +28,7 @@
         :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
         :joinperson="goodsInfo.join_total"
         :winperson="lotteryInfo.lucky_users"
+        :goodsId="goodsInfo.id"
       ></Waitedraw>
       <Winlottery
         v-if="lotteryShow.showWin"
@@ -180,7 +181,7 @@ export default {
     getGoods() {
       api.getGoods(this.$store.state.goodsId).then(res => {
         this.showCom(res.lottery_info.lottery_status);
-        res.goods.start_time = this.timestampTime(res.goods.start_time);
+        res.goods.end_time = this.timestampTime(res.goods.end_time);
         res.goods.join_total = this.tow(res.goods.join_total);
         res.lottery_info.lucky_users
           ? (res.lottery_info.lucky_users = this.nickname(

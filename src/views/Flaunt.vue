@@ -38,9 +38,7 @@
         <br />赶紧炫耀一下吧！
       </div>
     </template>
-    <van-loading class="loading" v-else size="24px" vertical
-      >图片生成中...</van-loading
-    >
+    <van-loading class="loading" v-else size="24px" vertical>图片生成中...</van-loading>
   </div>
 </template>
 

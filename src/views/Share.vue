@@ -30,13 +30,11 @@
         <img :src="imageFile" class="share_image" />
       </div>
       <div class="tip">
-        长按图片保存，发送至朋友圈，<br />
-        赶紧邀请好友来助力吧！
+        长按图片保存，发送至朋友圈，
+        <br />赶紧邀请好友来助力吧！
       </div>
     </template>
-    <van-loading class="loading" v-else size="24px" vertical>
-      生成图片中...
-    </van-loading>
+    <van-loading class="loading" v-else size="24px" vertical>生成图片中...</van-loading>
   </div>
 </template>
 
