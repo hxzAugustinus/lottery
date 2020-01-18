@@ -48,9 +48,7 @@
 export default {
   props: {
     winperson: {},
-    drawCode: {
-      type: Number
-    },
+    drawCode: {},
     joinperson: {
       type: Number
     },

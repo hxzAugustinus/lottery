@@ -33,7 +33,7 @@
         </p>
       </div>
     </div>
-    <div class="winperson" :style="!preGoods.image ? 'margin-top:0px' : ''">
+    <div class="winperson" :style="!preGoods.image ? 'margin-top:20px' : ''">
       <h1>中奖名单</h1>
       <div class="personCon" v-for="(item, index) in winperson" :key="index">
         <img
@@ -58,9 +58,7 @@
 export default {
   props: {
     winperson: {},
-    drawCode: {
-      type: Number
-    },
+    drawCode: {},
     joinperson: {
       type: Number
     },
@@ -203,6 +201,7 @@ export default {
       height: auto;
       display: block;
       margin-right: 15px;
+      border-radius: 15px;
     }
     .nextLottery-content {
       flex: 1;
@@ -254,7 +253,7 @@ export default {
       border-radius: 3px;
       display: flex;
       align-items: center;
-      margin-top: 15px;
+      margin-top: 10px;
       img {
         width: 48px;
         height: 48px;

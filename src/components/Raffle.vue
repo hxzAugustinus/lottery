@@ -42,9 +42,7 @@ export default {
       type: Boolean,
       default: false
     },
-    drawCode: {
-      type: Number
-    },
+    drawCode: {},
     joinperson: {},
     starttime: {}
   },

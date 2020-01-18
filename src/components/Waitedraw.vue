@@ -46,9 +46,7 @@ export default {
     imgList: {
       type: Array
     },
-    drawCode: {
-      type: Number
-    },
+    drawCode: {},
     joinperson: {
       type: Number
     },

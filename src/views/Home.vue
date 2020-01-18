@@ -217,7 +217,6 @@ export default {
               res.lottery_info.lucky_users
             ))
           : "";
-        res.lottery_info.exchange_code = Number(res.lottery_info.exchange_code);
         this.goodsInfo = res.goods;
         this.lotteryInfo = res.lottery_info;
       });
@@ -328,6 +327,7 @@ export default {
         border-bottom: 1px solid rgba(237, 237, 237, 1);
       }
       .content {
+        word-break: break-all;
         text-align: left;
         font-size: 18px;
         font-weight: 400;

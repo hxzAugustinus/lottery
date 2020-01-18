@@ -109,7 +109,6 @@ export default {
             res.pre_goods.start_time
           ))
         : (res.pre_goods = {});
-      res.record.exchange_code = Number(res.record.exchange_code);
       res.lucky_users = this.nickname(res.lucky_users);
       this.detailItem = res.record;
       this.lucky_users = res.lucky_users;
