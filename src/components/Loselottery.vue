@@ -6,9 +6,9 @@
       <p>
         <img src="@/images/person.png" alt />
         {{
-        joinperson / 10000 > 1
-        ? (joinperson / 10000).toFixed(1) + "W"
-        : joinperson
+          joinperson / 10000 > 1
+            ? (joinperson / 10000).toFixed(1) + "W"
+            : joinperson
         }}
       </p>
     </div>
@@ -21,7 +21,13 @@
       <img :src="preGoods.image" alt />
       <div class="nextLottery-content">
         <p>奖品：{{ preGoods.title }}</p>
-        <p @click="toLottery">{{ showTime ? timestampTime(preGoods.start_time) + ' 开始抽奖' : '去抽奖' }}</p>
+        <p @click="toLottery">
+          {{
+            showTime
+              ? timestampTime(preGoods.start_time) + " 开始抽奖"
+              : "去抽奖"
+          }}
+        </p>
       </div>
     </div>
     <div class="winperson">

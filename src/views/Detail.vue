@@ -67,7 +67,11 @@
       @showmodel="showmodel"
       style="margin-top:0px;"
     ></Loselottery>
-    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="pre_goods.wechat"></wx-modal>
+    <wx-modal
+      :showModel="showModel"
+      @showmodel="showmodel"
+      :wechatNum="pre_goods.wechat"
+    ></wx-modal>
   </div>
 </template>
 
