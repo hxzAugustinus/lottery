@@ -5,11 +5,7 @@
       <p>等待开奖</p>
       <p>
         <img src="@/images/person.png" alt />
-        {{
-        joinperson / 10000 > 1
-        ? (joinperson / 10000).toFixed(1) + "W"
-        : joinperson
-        }}
+        {{ joinperson }}
       </p>
     </div>
     <div class="DrawMsg-num">
@@ -44,13 +40,13 @@ export default {
     },
     joinperson: {
       type: Number
-    }
+    },
+    goodsId: {}
   },
   data() {
     return {
       defaultAvatar: 'this.src="' + require("@/images/defultImg.png") + '"',
-      disabled: false,
-      goodsId: 111
+      disabled: false
     };
   },
   methods: {

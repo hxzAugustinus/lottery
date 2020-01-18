@@ -19,7 +19,7 @@
         @getdrawCode="getdrawCode"
         :joinperson="goodsInfo.join_total"
         :drawCode="drawCode"
-        :starttime="goodsInfo.start_time"
+        :starttime="goodsInfo.end_time"
         v-if="lotteryShow.showDraw"
       ></Raffle>
       <Waitedraw
@@ -28,6 +28,7 @@
         :drawCode="drawCode > 0 ? drawCode :  lotteryInfo.exchange_code"
         :joinperson="goodsInfo.join_total"
         :winperson="lotteryInfo.lucky_users"
+        :goodsId="goodsInfo.id"
       ></Waitedraw>
       <Winlottery
         v-if="lotteryShow.showWin"
@@ -109,26 +110,10 @@ export default {
     Loselottery
   },
   created() {
+    console.log(this.$route);
     this.getGoods();
   },
-  mounted() {
-    let winperson = this.winperson;
-    winperson.forEach(item => {
-      if (item.name.length - 2 > 0) {
-        let num = "";
-        for (let i = 0; i < item.name.length - 2; i++) {
-          num = num + "*";
-        }
-        item.name =
-          item.name.substring(0, 1) +
-          num +
-          item.name.substring(item.name.length - 1);
-      } else {
-        item.name = item.name.substring(0, 1) + "*";
-      }
-    });
-    this.winperson = winperson;
-  },
+  mounted() {},
   methods: {
     closeModal() {
       if (!this.drawFirst) {
