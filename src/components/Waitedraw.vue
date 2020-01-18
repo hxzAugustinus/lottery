@@ -6,9 +6,9 @@
       <p>
         <img src="@/images/person.png" alt />
         {{
-          joinperson / 10000 > 1
-            ? (joinperson / 10000).toFixed(1) + "W"
-            : joinperson
+        joinperson / 10000 > 1
+        ? (joinperson / 10000).toFixed(1) + "W"
+        : joinperson
         }}
       </p>
     </div>
@@ -16,9 +16,7 @@
       <p>我的兑奖码</p>
       <p>{{ drawCode }}</p>
     </div>
-    <p class="DrawMsg-content">
-      每邀请一位新用户，注册【网上老年大学】，可以增加5%获奖概率哦～（每个商品限4个。
-    </p>
+    <p class="DrawMsg-content">每邀请一位新用户，注册【网上老年大学】，可以增加5%获奖概率哦～（每个商品限4个。</p>
     <div class="invatepeple" v-if="imgList.length > 0">
       <p>已邀请{{ imgList.length }}位，中奖概率增加{{ imgList.length * 5 }}%</p>
       <div class="imgBox">
@@ -31,12 +29,7 @@
         />
       </div>
     </div>
-    <van-button
-      type="danger"
-      :disabled="imgList.length >= 4"
-      @click="showoverlay"
-      >邀请好友助力</van-button
-    >
+    <van-button type="danger" :disabled="imgList.length >= 4" @click="showoverlay">邀请好友助力</van-button>
   </div>
 </template>
 
@@ -163,6 +156,7 @@ export default {
         width: 49px;
         height: 49px;
         margin-right: 12px;
+        border-radius: 50%;
       }
     }
   }

@@ -15,7 +15,7 @@ export default {
      * @return: promise
      */
     getRecordList() {
-        return Vue.axios.post("/lottery/getRecordList");
+        return Vue.axios.get("/lottery/getRecordList");
     },
     /**
      * @description: 获取用户参与抽奖详情
