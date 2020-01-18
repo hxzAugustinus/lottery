@@ -21,7 +21,11 @@
         <img
           v-for="(item, index) in imgList"
           :key="index"
-          :src="item.avatar"
+          :src="
+            item.avatar != null
+              ? item.avatar
+              : require('@/images/defultImg.png')
+          "
           alt
           :onerror="defaultAvatar"
         />

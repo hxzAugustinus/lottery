@@ -181,7 +181,7 @@ export default {
     .personCon {
       width: 100%;
       box-sizing: border-box;
-      padding: 15px;
+      padding: 10px;
       background: rgba(247, 247, 247, 1);
       border-radius: 3px;
       display: flex;
