@@ -209,7 +209,7 @@ export default {
     },
     getGoods() {
       return api.getGoods(this.$store.state.goodsId).then(res => {
-        // this.showCom(res.lottery_info.lottery_status);
+        this.showCom(res.lottery_info.lottery_status);
         res.goods.end_time = this.timestampTime(res.goods.end_time);
         res.goods.join_total = this.tow(res.goods.join_total);
         res.lottery_info.lucky_users
