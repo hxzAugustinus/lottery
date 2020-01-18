@@ -9,7 +9,7 @@
       <div class="wrap">
         <section class="header">
           <div class="avator">
-            <img :src="user.avatar" alt="用户头像" />
+            <img :src="user.avatar_base64" alt="用户头像" />
           </div>
           <div>{{ user.nickname }}</div>
         </section>
@@ -38,7 +38,9 @@
         <br />赶紧炫耀一下吧！
       </div>
     </template>
-    <van-loading class="loading" v-else size="24px" vertical>图片生成中...</van-loading>
+    <van-loading class="loading" v-else size="24px" vertical
+      >图片生成中...</van-loading
+    >
   </div>
 </template>
 

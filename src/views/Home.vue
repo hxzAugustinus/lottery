@@ -1,79 +1,81 @@
 <!--
  * @Date: 2020-01-09 10:53:54
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-18 15:55:05
+ * @LastEditTime : 2020-01-18 17:22:37
  -->
 <template>
-  <div class="home">
-    <img class="bg" src="@/images/homeBg.png" />
-    <div class="user">
-      <router-link :to="{ name: 'profile' }" class="router"></router-link>
-      <span></span>
-    </div>
-    <div class="contariner">
-      <award :img="goodsInfo.image" :title="goodsInfo.title"></award>
-      <Raffle
-        @close-modal="closeModal"
-        :drawFirst="drawFirst"
-        @showMsg="showmsg"
-        @getdrawCode="getdrawCode"
-        :joinperson="goodsInfo.join_total"
-        :drawCode="drawCode"
-        :starttime="goodsInfo.end_time"
-        v-if="lotteryShow.showDraw"
-      ></Raffle>
-      <Waitedraw
-        v-if="lotteryShow.showMsg"
-        :imgList="lotteryInfo.invite_users ? lotteryInfo.invite_users : ''"
-        :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
-        :joinperson="goodsInfo.join_total"
-        :winperson="lotteryInfo.lucky_users"
-        :goodsId="goodsInfo.id"
-      ></Waitedraw>
-      <Winlottery
-        v-if="lotteryShow.showWin"
-        :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
-        :joinperson="goodsInfo.join_total"
-        :winperson="lotteryInfo.lucky_users"
-        :goodsId="goodsInfo.id"
-        :goodsTitle="goodsInfo.title"
-        @showmodel="showmodel"
-      ></Winlottery>
-      <Loselottery
-        v-if="lotteryShow.showLose"
-        :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
-        :joinperson="goodsInfo.join_total"
-        :winperson="lotteryInfo.lucky_users"
-        :goodsTitle="goodsInfo.title"
-        :preGoods="lotteryInfo.pre_goods"
-        :status="lotteryShow.status"
-        @showmodel="showmodel"
-        @getGoods="getGoods"
-      ></Loselottery>
-      <div class="prizeBox">
-        <p class="prizeBox-title">抽奖说明</p>
-        <div class="content">
-          <p>新春福利，限时抽奖活动</p>
-          <p>
-            1.本次活动需添加活动微信“
-            {{ goodsInfo.wechat }} ”才能获得抽奖资格和领取奖品。
-          </p>
-          <p>
-            2.添加活动微信“ {{ goodsInfo.wechat }} ”可领取{{
-              goodsInfo.title
-            }}，共计{{ goodsInfo.stock }}份，先到先得，送完即止。
-          </p>
-          <p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p>
-          <p>4.本次活动100%真实有效，最终解释权归网上老年大学</p>
+  <mescroll-vue ref="mescroll" :down="mescrollDown" @init="mescrollInit">
+    <div class="home">
+      <img class="bg" src="@/images/homeBg.png" />
+      <div class="user">
+        <router-link :to="{ name: 'profile' }" class="router"></router-link>
+        <span></span>
+      </div>
+      <div class="contariner">
+        <award :img="goodsInfo.image" :title="goodsInfo.title"></award>
+        <Raffle
+          @close-modal="closeModal"
+          :drawFirst="drawFirst"
+          @showMsg="showmsg"
+          @getdrawCode="getdrawCode"
+          :joinperson="goodsInfo.join_total"
+          :drawCode="drawCode"
+          :starttime="goodsInfo.end_time"
+          v-if="lotteryShow.showDraw"
+        ></Raffle>
+        <Waitedraw
+          v-if="lotteryShow.showMsg"
+          :imgList="lotteryInfo.invite_users ? lotteryInfo.invite_users : ''"
+          :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
+          :joinperson="goodsInfo.join_total"
+          :winperson="lotteryInfo.lucky_users"
+          :goodsId="goodsInfo.id"
+        ></Waitedraw>
+        <Winlottery
+          v-if="lotteryShow.showWin"
+          :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
+          :joinperson="goodsInfo.join_total"
+          :winperson="lotteryInfo.lucky_users"
+          :goodsId="goodsInfo.id"
+          :goodsTitle="goodsInfo.title"
+          @showmodel="showmodel"
+        ></Winlottery>
+        <Loselottery
+          v-if="lotteryShow.showLose"
+          :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
+          :joinperson="goodsInfo.join_total"
+          :winperson="lotteryInfo.lucky_users"
+          :goodsTitle="goodsInfo.title"
+          :preGoods="lotteryInfo.pre_goods"
+          :status="lotteryShow.status"
+          @showmodel="showmodel"
+          @getGoods="getGoods"
+        ></Loselottery>
+        <div class="prizeBox">
+          <p class="prizeBox-title">抽奖说明</p>
+          <div class="content">
+            <p>新春福利，限时抽奖活动</p>
+            <p>
+              1.本次活动需添加活动微信“
+              {{ goodsInfo.wechat }} ”才能获得抽奖资格和领取奖品。
+            </p>
+            <p>
+              2.添加活动微信“ {{ goodsInfo.wechat }} ”可领取{{
+                goodsInfo.title
+              }}，共计{{ goodsInfo.stock }}份，先到先得，送完即止。
+            </p>
+            <p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p>
+            <p>4.本次活动100%真实有效，最终解释权归网上老年大学</p>
+          </div>
         </div>
       </div>
+      <wx-modal
+        :showModel="showModel"
+        @showmodel="showmodel"
+        :wechatNum="goodsInfo.wechat"
+      ></wx-modal>
     </div>
-    <wx-modal
-      :showModel="showModel"
-      @showmodel="showmodel"
-      :wechatNum="goodsInfo.wechat"
-    ></wx-modal>
-  </div>
+  </mescroll-vue>
 </template>
 
 <script>
@@ -83,6 +85,7 @@ import WxModal from "@/components/WxModal.vue";
 import Waitedraw from "@/components/Waitedraw.vue";
 import Winlottery from "@/components/Winlottery.vue";
 import Loselottery from "@/components/Loselottery.vue";
+import MescrollVue from "mescroll.js/mescroll.vue";
 import api from "@/api/LotteryApi.js";
 
 export default {
@@ -102,7 +105,11 @@ export default {
       imgList: [],
       winperson: [],
       goodsInfo: {},
-      lottery_info: {}
+      lottery_info: {},
+      mescroll: "",
+      mescrollDown: {
+        callback: this.refresh
+      }
     };
   },
   components: {
@@ -111,9 +118,21 @@ export default {
     WxModal,
     Waitedraw,
     Winlottery,
-    Loselottery
+    Loselottery,
+    MescrollVue
+  },
+  mounted() {
+    this.$store.state.uid && this.getGoods();
   },
   methods: {
+    mescrollInit(mescroll) {
+      this.mescroll = mescroll; // 如果this.mescroll对象没有使用到,则mescrollInit可以不用配置
+    },
+    refresh() {
+      this.getGoods().finally(() => {
+        this.mescroll.endDownScroll();
+      });
+    },
     closeModal() {
       if (!this.drawFirst) {
         return;
@@ -182,7 +201,7 @@ export default {
       return M + D + h + m;
     },
     getGoods() {
-      api.getGoods(this.$store.state.goodsId).then(res => {
+      return api.getGoods(this.$store.state.goodsId).then(res => {
         this.showCom(res.lottery_info.lottery_status);
         res.goods.end_time = this.timestampTime(res.goods.end_time);
         res.goods.join_total = this.tow(res.goods.join_total);
