@@ -66,11 +66,7 @@
       @showmodel="showmodel"
       style="margin-top:0px;"
     ></Loselottery>
-    <wx-modal
-      :showModel="showModel"
-      @showmodel="showmodel"
-      :wechatNum="pre_goods.wechat"
-    ></wx-modal>
+    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="pre_goods.wechat"></wx-modal>
   </div>
 </template>
 
@@ -101,7 +97,8 @@ export default {
     this.status = this.$route.query.status;
     api.getRecordById(this.$route.query.id).then(res => {
       res.record.end_time = this.timestampToTime(res.record.end_time);
-      res.pre_goods.createtime = this.timestampTime(res.pre_goods.createtime);
+      res.record.join_total = this.tow(res.record.join_total);
+      res.pre_goods.start_time = this.timestampTime(res.pre_goods.start_time);
       res.record.exchange_code = Number(res.record.exchange_code);
       res.lucky_users = this.nickname(res.lucky_users);
       this.detailItem = res.record;
@@ -156,6 +153,10 @@ export default {
     },
     closeModal() {
       this.showModel = true;
+    },
+    /**破万 */
+    tow(num) {
+      return num / 10000 > 1 ? (num = (num / 10000).toFixed(1) + "W") : num;
     }
   }
 };
