@@ -8,7 +8,7 @@
     <article ref="capture" class="share-content">
       <section class="header">
         <div class="avator">
-          <img :src="user.avatar" alt="用户头像" />
+          <img :src="user.avatar_base64" alt="用户头像" />
         </div>
         <div>{{ user.nickname }}</div>
         <div>邀请你帮忙助力抽奖</div>
@@ -30,13 +30,13 @@
         <img :src="imageFile" class="share_image" />
       </div>
       <div class="tip">
-        长按图片保存，发送至朋友圈，<br />
-        赶紧邀请好友来助力吧！
+        长按图片保存，发送至朋友圈，
+        <br />赶紧邀请好友来助力吧！
       </div>
     </template>
-    <van-loading class="loading" v-else size="24px" vertical>
-      生成图片中...
-    </van-loading>
+    <van-loading class="loading" v-else size="24px" vertical
+      >生成图片中...</van-loading
+    >
   </div>
 </template>
 

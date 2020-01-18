@@ -11,6 +11,7 @@
     "core-js": "^3.4.4",
     "html2canvas": "^1.0.0-rc.5",
     "jweixin-module": "^1.6.0",
+    "mescroll.js": "^1.4.1",
     "qs": "^6.9.1",
     "vant": "^2.4.1",
     "vconsole": "^3.3.4",

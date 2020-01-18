@@ -9,7 +9,7 @@
       <div class="wrap">
         <section class="header">
           <div class="avator">
-            <img :src="user.avatar" alt="用户头像" />
+            <img :src="user.avatar_base64" alt="用户头像" />
           </div>
           <div>{{ user.nickname }}</div>
         </section>

@@ -43,6 +43,7 @@
       :imgList="invate_users"
       :drawCode="detailItem.exchange_code"
       :joinperson="detailItem.join_total"
+      :goodsId="detailItem.goods_id"
       style="margin-top:0px;"
       v-if="detailItem.status == 0"
     ></Waitedraw>
@@ -51,7 +52,7 @@
       :drawCode="detailItem.exchange_code"
       :joinperson="detailItem.join_total"
       :goodsTitle="detailItem.title"
-      :goodsId="detailItem.id"
+      :goodsId="detailItem.goods_id"
       @showmodel="showmodel"
       style="margin-top:0px;"
       v-if="detailItem.status == 1"

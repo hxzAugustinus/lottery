@@ -21,7 +21,7 @@
       <img :src="preGoods.image" alt />
       <div class="nextLottery-content">
         <p>奖品：{{ preGoods.title }}</p>
-        <p @click="toLottery">{{ showTime ? preGoods.start_time + ' 开始抽奖' : '去抽奖' }}</p>
+        <p @click="toLottery">{{ showTime ? timestampTime(preGoods.start_time) + ' 开始抽奖' : '去抽奖' }}</p>
       </div>
     </div>
     <div class="winperson">
@@ -30,7 +30,7 @@
         <img
           :src="
             item.avatar != null
-              ? 'item.avatar'
+              ? item.avatar
               : require('@/images/defultImg.png')
           "
           alt
@@ -76,24 +76,36 @@ export default {
     },
     timecompare() {
       if (this.preGoods.start_time) {
-        new Date(this.preGoods.start_time) > new Date()
+        new Date(this.preGoods.start_time * 1000) > new Date()
           ? (this.showTime = true)
           : (this.showTime = false);
       }
     },
     toLottery() {
+      let uid = this.$store.state.uid,
+        goodsId = this.preGoods.id;
       if (this.showTime) return;
       if (this.$route.name == "home") {
-        this.$emit("getGoods", true);
-      } else {
-        let uid = this.$store.state.uid,
-          goodsId = this.preGoods.id;
-        console.log(this.$store.state);
         this.$store.commit("setAuth", { uid, goodsId });
+        this.$emit("getGoods");
+      } else {
+        console.log(this.$store.state);
         this.$router.push({
-          name: "home"
+          name: "home",
+          query: {
+            uid,
+            goodsId
+          }
         });
       }
+    },
+    timestampTime(timestamp) {
+      var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var M = date.getMonth() + 1 + "月";
+      var D = date.getDate() + "日";
+      var h = date.getHours() + ":";
+      var m = date.getMinutes();
+      return M + D + h + m;
     }
   }
 };
@@ -237,6 +249,7 @@ export default {
         width: 48px;
         height: 48px;
         margin-right: 15px;
+        border-radius: 50%;
       }
       p {
         margin: 0;

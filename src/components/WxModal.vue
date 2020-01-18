@@ -21,8 +21,7 @@
       type="info"
       v-clipboard:copy="wechatNum"
       v-clipboard:success="onCopy"
-      >复制微信号</van-button
-    >
+    >复制微信号</van-button>
   </van-dialog>
 </template>
 
