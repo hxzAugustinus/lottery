@@ -1,28 +1,60 @@
+<!--
+ * @Date: 2020-01-09 10:39:39
+ * @LastEditors  : hxz
+ * @LastEditTime : 2020-01-17 17:57:29
+ -->
 <template>
   <div id="app">
     <router-view />
   </div>
 </template>
 
+<script>
+export default {
+  beforeMount() {
+    if (process.env.NODE_ENV == "development") {
+      this.init();
+    } else {
+      this.$wx.miniProgram.getEnv(res => {
+        if (res.miniprogram) {
+          this.init();
+        }
+      });
+    }
+  },
+  methods: {
+    init() {
+      /* 用户id */
+      const uid = this.$utils.getQueryString("uid");
+      /* 商品id */
+      const goodsId = this.$utils.getQueryString("id");
+      console.log(uid, goodsId);
+      this.$store.commit("setAuth", { uid, goodsId });
+    }
+  }
+};
+</script>
+
 <style lang="scss">
+html,
+body {
+  height: 100%;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  height: 100%;
 }
 
-#nav {
-  padding: 30px;
+html {
+  font-size: 16px;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+@media screen and (max-width: 359px) {
+  html {
+    font-size: 12px;
   }
 }
 </style>

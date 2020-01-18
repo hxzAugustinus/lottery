@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-01-09 10:53:54
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-09 15:39:44
+ * @LastEditTime : 2020-01-15 15:51:18
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -15,7 +15,7 @@ const routes = [
     name: "home",
     component: Home,
     meta: {
-      title: "开心抽奖"
+      title: "鼠年行大运，奖品抽不停"
     }
   },
   {
@@ -35,8 +35,46 @@ const routes = [
     meta: {
       title: "抽奖详情"
     }
+  },
+  {
+    path: "/share/:goodsId",
+    name: "share",
+    component: () =>
+      import(/* webpackChunkName: "share" */ "../views/Share.vue"),
+    meta: {
+      title: "生成分享图"
+    }
+  },
+  {
+    path: "/flaunt/:goodsId",
+    name: "flaunt",
+    component: () =>
+      import(/* webpackChunkName: "flaunt" */ "../views/Flaunt.vue"),
+    meta: {
+      title: "炫耀一下"
+    }
+  },
+  {
+    path: "/client",
+    name: "client",
+    component: () =>
+      import(/* webpackChunkName: "share" */ "../views/Client.vue"),
+    meta: {
+      title: "终端错误"
+    }
   }
 ];
+
+/**
+ * 判断是否是微信环境
+ */
+function getIsWxClient() {
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/MicroMessenger/i) == "micromessenger") {
+    return true;
+  }
+  return false;
+}
 
 const router = new VueRouter({
   mode: "history",
@@ -44,6 +82,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (!getIsWxClient()) {
+    /* next({ path: "/client" }); */
+  }
+
   /* 路由发生变化修改页面title */
   if (to.meta.title) {
     document.title = to.meta.title;
