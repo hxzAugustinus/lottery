@@ -151,7 +151,7 @@ export default {
         .lotteryJoinIn(this.goodsInfo.id)
         .then(res => {
           if (res.exchange_code) {
-            this.drawCode = Number(res.exchange_code);
+            this.drawCode = res.exchange_code;
           }
         })
         .catch(err => {

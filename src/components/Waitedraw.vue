@@ -47,9 +47,7 @@ export default {
       type: Array
     },
     drawCode: {},
-    joinperson: {
-      type: Number
-    },
+    joinperson: {},
     goodsId: {}
   },
   data() {
