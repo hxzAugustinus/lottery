@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-09 10:39:39
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-15 16:55:55
+ * @LastEditTime : 2020-01-17 17:57:29
  -->
 <template>
   <div id="app">
@@ -12,16 +12,25 @@
 <script>
 export default {
   beforeMount() {
-    this.$wx.miniProgram.getEnv(res => {
-      if (res.miniprogram) {
-        /* 用户id */
-        const uid = this.$utils.getQueryString("uid");
-        /* 商品id */
-        const goodsId = this.$utils.getQueryString("id");
-        console.log(uid, goodsId);
-        this.$store.commit("setAuth", { uid, goodsId });
-      }
-    });
+    if (process.env.NODE_ENV == "development") {
+      this.init();
+    } else {
+      this.$wx.miniProgram.getEnv(res => {
+        if (res.miniprogram) {
+          this.init();
+        }
+      });
+    }
+  },
+  methods: {
+    init() {
+      /* 用户id */
+      const uid = this.$utils.getQueryString("uid");
+      /* 商品id */
+      const goodsId = this.$utils.getQueryString("id");
+      console.log(uid, goodsId);
+      this.$store.commit("setAuth", { uid, goodsId });
+    }
   }
 };
 </script>
