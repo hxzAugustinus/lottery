@@ -42,9 +42,7 @@ export default {
       type: Boolean,
       default: false
     },
-    drawCode: {
-      type: Number
-    },
+    drawCode: {},
     joinperson: {},
     starttime: {}
   },
@@ -94,7 +92,7 @@ export default {
         if (this.drawCode > 0 && !this.showNum) {
           this.showNum = true;
           setTimeout(() => {
-            this.toOrderNum(this.drawCode); // 这里输入数字即可调用
+            this.toOrderNum(Number(this.drawCode)); // 这里输入数字即可调用
             this.$emit("showMsg");
           }, 100);
         }

@@ -141,6 +141,7 @@ export default {
         flex-direction: column;
         background: white;
         .item-img {
+          width: 100%;
           height: 250px;
           margin-bottom: 15px;
           border-radius: 5px;

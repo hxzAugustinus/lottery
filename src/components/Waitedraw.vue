@@ -13,7 +13,7 @@
       <p>{{ drawCode }}</p>
     </div>
     <p class="DrawMsg-content">
-      每邀请一位新用户，注册【网上老年大学】，可以增加5%获奖概率哦～（每个商品限4个。
+      每邀请一位新用户，注册【网上老年大学】，可以增加5%获奖概率哦～（每个商品限4个)。
     </p>
     <div class="invatepeple" v-if="imgList.length > 0">
       <p>已邀请{{ imgList.length }}位，中奖概率增加{{ imgList.length * 5 }}%</p>
@@ -21,7 +21,11 @@
         <img
           v-for="(item, index) in imgList"
           :key="index"
-          :src="item.avatar"
+          :src="
+            item.avatar != null
+              ? item.avatar
+              : require('@/images/defultImg.png')
+          "
           alt
           :onerror="defaultAvatar"
         />
@@ -42,9 +46,7 @@ export default {
     imgList: {
       type: Array
     },
-    drawCode: {
-      type: Number
-    },
+    drawCode: {},
     joinperson: {
       type: Number
     },
