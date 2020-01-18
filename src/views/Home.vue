@@ -25,7 +25,7 @@
         ></Raffle>
         <Waitedraw
           v-if="lotteryShow.showMsg"
-          :imgList="lotteryInfo.invite_users ? lotteryInfo.invite_users : ''"
+          :imgList="lotteryInfo.invite_users ? lotteryInfo.invite_users : []"
           :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
           :joinperson="goodsInfo.join_total"
           :winperson="lotteryInfo.lucky_users"
