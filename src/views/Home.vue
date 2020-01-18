@@ -25,22 +25,29 @@
       <Waitedraw
         v-if="lotteryShow.showMsg"
         :imgList="lotteryInfo.invite_users ? lotteryInfo.invite_users : ''"
-        :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
+        :drawCode="drawCode > 0 ? drawCode :  lotteryInfo.exchange_code"
         :joinperson="goodsInfo.join_total"
+        :winperson="lotteryInfo.lucky_users"
       ></Waitedraw>
       <Winlottery
         v-if="lotteryShow.showWin"
-        :winperson="winperson"
         :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
         :joinperson="goodsInfo.join_total"
+        :winperson="lotteryInfo.lucky_users"
+        :goodsId="goodsInfo.id"
+        :goodsTitle="goodsInfo.title"
         @showmodel="showmodel"
       ></Winlottery>
       <Loselottery
         v-if="lotteryShow.showLose"
-        :winperson="winperson"
         :drawCode="drawCode > 0 ? drawCode : lotteryInfo.exchange_code"
         :joinperson="goodsInfo.join_total"
+        :winperson="lotteryInfo.lucky_users"
+        :goodsTitle="goodsInfo.title"
+        :preGoods="lotteryInfo.pre_goods"
+        :status="lotteryShow.status"
         @showmodel="showmodel"
+        @getGoods="getGoods"
       ></Loselottery>
       <div class="prizeBox">
         <p class="prizeBox-title">抽奖说明</p>
@@ -52,7 +59,7 @@
           </p>
           <p>
             2.添加活动微信“ {{ goodsInfo.wechat }} ”可领取{{
-              goodsInfo.title
+            goodsInfo.title
             }}，共计{{ goodsInfo.stock }}份，先到先得，送完即止。
           </p>
           <p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p>
@@ -60,11 +67,7 @@
         </div>
       </div>
     </div>
-    <wx-modal
-      :showModel="showModel"
-      @showmodel="showmodel"
-      :wechatNum="goodsInfo.wechat"
-    ></wx-modal>
+    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="goodsInfo.wechat"></wx-modal>
   </div>
 </template>
 
@@ -106,12 +109,7 @@ export default {
     Loselottery
   },
   created() {
-    api.getGoods(0).then(res => {
-      this.showCom(res.lottery_info.lottery_status);
-      res.goods.start_time = this.timestampTime(res.goods.start_time);
-      this.goodsInfo = res.goods;
-      this.lotteryInfo = res.lottery_info;
-    });
+    this.getGoods();
   },
   mounted() {
     let winperson = this.winperson;
@@ -172,6 +170,7 @@ export default {
         case -1:
           this.lotteryShow.showDraw = false;
           this.lotteryShow.showLose = true;
+          this.lotteryShow.status = true;
           break;
         case 0:
           this.lotteryShow.showDraw = false;
@@ -184,7 +183,6 @@ export default {
         case 2:
           this.lotteryShow.showDraw = false;
           this.lotteryShow.showLose = true;
-          this.lotteryShow.status = true;
           break;
       }
     },
@@ -195,6 +193,64 @@ export default {
       var h = date.getHours() + ":";
       var m = date.getMinutes();
       return M + D + h + m;
+    },
+    getGoods(type) {
+      if (type) {
+        api.getGoods(this.$store.state.goodsId).then(res => {
+          this.showCom(res.lottery_info.lottery_status);
+          res.goods.start_time = this.timestampTime(res.goods.start_time);
+          res.goods.join_total = this.tow(res.goods.join_total);
+          res.lottery_info.lucky_users
+            ? (res.lottery_info.lucky_users = this.nickname(
+                res.lottery_info.lucky_users
+              ))
+            : "";
+          res.lottery_info.exchange_code = Number(
+            res.lottery_info.exchange_code
+          );
+          this.goodsInfo = res.goods;
+          this.lotteryInfo = res.lottery_info;
+        });
+      } else {
+        api.getGoods(0).then(res => {
+          this.showCom(res.lottery_info.lottery_status);
+          res.goods.start_time = this.timestampTime(res.goods.start_time);
+          res.goods.join_total = this.tow(res.goods.join_total);
+          res.lottery_info.lucky_users
+            ? (res.lottery_info.lucky_users = this.nickname(
+                res.lottery_info.lucky_users
+              ))
+            : "";
+          res.lottery_info.exchange_code = Number(
+            res.lottery_info.exchange_code
+          );
+          this.goodsInfo = res.goods;
+          this.lotteryInfo = res.lottery_info;
+        });
+      }
+    },
+    nickname(name) {
+      name.forEach(item => {
+        if (item.nickname != null) {
+          let arr = Array.from(item.nickname),
+            num = "";
+          if (arr.length - 2 > 0) {
+            for (let i = 0; i < arr.length - 2; i++) {
+              num = num + "*";
+            }
+            item.nickname = arr[0] + num + arr[arr.length - 1];
+          } else {
+            item.nickname = arr[0] + "*";
+          }
+        } else {
+          item.nickname = "**";
+        }
+      });
+      return name;
+    },
+    /**破万 */
+    tow(num) {
+      return num / 10000 > 1 ? (num = (num / 10000).toFixed(1) + "W") : num;
     }
   }
 };

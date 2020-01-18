@@ -27,10 +27,10 @@ Vue.use(VueClipboard);
 Vue.config.productionTip = false;
 
 /* 手机查看console */
-if (process.env.NODE_ENV !== "development") {
-  var VConsole = require("vconsole/dist/vconsole.min.js");
-  new VConsole();
-}
+// if (process.env.NODE_ENV !== "development") {
+var VConsole = require("vconsole/dist/vconsole.min.js");
+new VConsole();
+// }
 
 new Vue({
   store,
