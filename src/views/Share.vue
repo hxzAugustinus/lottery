@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-17 17:35:42
+ * @LastEditTime : 2020-01-18 21:18:06
  -->
 <template>
   <div class="share-page">
@@ -94,14 +94,14 @@ export default {
     width: 100%;
     height: calc(100% - 4.25rem);
     border-radius: 10px;
-    padding: 15px;
+    padding: 1.875rem 0.9375rem;
     display: flex;
     flex-direction: column;
 
     .header {
       font-size: 0;
       text-align: center;
-      margin: 1.25rem auto 0.9375rem;
+      margin: 0 auto 0.9375rem;
       .avator {
         display: inline-block;
         width: 3.75rem;
@@ -112,6 +112,7 @@ export default {
         > img {
           width: 100%;
           height: 100%;
+          border: 1px solid #ededed;
         }
       }
 
@@ -129,13 +130,16 @@ export default {
 
     .goods {
       position: relative;
+      font-size: 0;
       flex: 1;
       background: white;
       overflow: hidden;
-      font-size: 0;
+      display: flex;
+      flex-direction: column;
       > img {
-        height: calc(100% - 5.25rem);
-        width: 100%;
+        flex: 1;
+        width: calc(100% - 2px);
+        border: 1px solid #ededed;
       }
       > div {
         padding: 0.875rem;

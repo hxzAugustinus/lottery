@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-17 17:38:43
+ * @LastEditTime : 2020-01-18 21:18:52
  -->
 <template>
   <div class="share-page">
@@ -119,6 +119,7 @@ export default {
         > img {
           width: 100%;
           height: 100%;
+          border: 1px solid #ededed;
         }
       }
 
@@ -132,9 +133,12 @@ export default {
 
     .goods {
       position: relative;
-      flex: 1;
-      overflow: hidden;
       font-size: 0;
+      flex: 1;
+      background: white;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
       > div {
         font-size: 1.125rem;
         color: #333333;
@@ -145,8 +149,9 @@ export default {
         }
       }
       > img {
-        height: calc(100% - 4.125rem);
-        width: 100%;
+        flex: 1;
+        width: calc(100% - 2px);
+        border: 1px solid #ededed;
       }
     }
 
