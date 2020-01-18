@@ -6,9 +6,9 @@
       <p>
         <img src="@/images/person.png" alt />
         {{
-        joinperson / 10000 > 1
-        ? (joinperson / 10000).toFixed(1) + "W"
-        : joinperson
+          joinperson / 10000 > 1
+            ? (joinperson / 10000).toFixed(1) + "W"
+            : joinperson
         }}
       </p>
     </div>
@@ -16,15 +16,24 @@
       <p>我的兑奖码</p>
       <p>{{ drawCode }}</p>
     </div>
-    <p class="DrawMsg-content">为您准备了如下福利</p>
-    <div class="nextLottery">
+    <p class="msg">
+      活动已结束，请添加官方客服人员微信号【{{ wechatNum }}】，关注后续活动哦～
+    </p>
+    <p class="DrawMsg-content" v-if="preGoods.image">为您准备了如下福利</p>
+    <div class="nextLottery" v-if="preGoods.image">
       <img :src="preGoods.image" alt />
       <div class="nextLottery-content">
         <p>奖品：{{ preGoods.title }}</p>
-        <p @click="toLottery">{{ showTime ? timestampTime(preGoods.start_time) + ' 开始抽奖' : '去抽奖' }}</p>
+        <p @click="toLottery">
+          {{
+            showTime
+              ? timestampTime(preGoods.start_time) + " 开始抽奖"
+              : "去抽奖"
+          }}
+        </p>
       </div>
     </div>
-    <div class="winperson">
+    <div class="winperson" :style="!preGoods.image ? 'margin-top:0px' : ''">
       <h1>中奖名单</h1>
       <div class="personCon" v-for="(item, index) in winperson" :key="index">
         <img
@@ -58,7 +67,8 @@ export default {
     status: {},
     preGoods: {
       type: Object
-    }
+    },
+    wechatNum: {}
   },
   data() {
     return {
@@ -266,6 +276,11 @@ export default {
         color: rgba(102, 102, 102, 1);
       }
     }
+  }
+  .msg {
+    margin: 10px 0 0 0;
+    font-size: 18px;
+    line-height: 27px;
   }
 }
 </style>

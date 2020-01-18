@@ -6,9 +6,9 @@
       <p>
         <img src="@/images/person.png" alt />
         {{
-        joinperson / 10000 > 1
-        ? (joinperson / 10000).toFixed(1) + "W"
-        : joinperson
+          joinperson / 10000 > 1
+            ? (joinperson / 10000).toFixed(1) + "W"
+            : joinperson
         }}
       </p>
     </div>
@@ -19,7 +19,9 @@
     <p class="DrawMsg-content">奖品：{{ goodsTitle }}</p>
     <div class="btnBox">
       <p @click="closeModal">去领取</p>
-      <router-link :to="{ name: 'flaunt', params: { goodsId } }" tag="p">炫耀一下</router-link>
+      <router-link :to="{ name: 'flaunt', params: { goodsId } }" tag="p"
+        >炫耀一下</router-link
+      >
     </div>
     <div class="winperson">
       <h1>中奖名单</h1>
@@ -27,7 +29,7 @@
         <img
           :src="
             item.avatar != null
-              ? 'item.avatar'
+              ? item.avatar
               : require('@/images/defultImg.png')
           "
           alt

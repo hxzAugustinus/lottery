@@ -62,12 +62,17 @@
       :winperson="lucky_users"
       :drawCode="detailItem.exchange_code"
       :joinperson="detailItem.join_total"
+      :wechatNum="detailItem.wechat"
       status="1"
       :preGoods="pre_goods"
       @showmodel="showmodel"
       style="margin-top:0px;"
     ></Loselottery>
-    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="pre_goods.wechat"></wx-modal>
+    <wx-modal
+      :showModel="showModel"
+      @showmodel="showmodel"
+      :wechatNum="detailItem.wechat"
+    ></wx-modal>
   </div>
 </template>
 
@@ -99,7 +104,11 @@ export default {
     api.getRecordById(this.$route.query.id).then(res => {
       res.record.end_time = this.timestampToTime(res.record.end_time);
       res.record.join_total = this.tow(res.record.join_total);
-      res.pre_goods.start_time = this.timestampTime(res.pre_goods.start_time);
+      res.pre_goods != null
+        ? (res.pre_goods.start_time = this.timestampTime(
+            res.pre_goods.start_time
+          ))
+        : (res.pre_goods = {});
       res.record.exchange_code = Number(res.record.exchange_code);
       res.lucky_users = this.nickname(res.lucky_users);
       this.detailItem = res.record;

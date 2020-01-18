@@ -46,8 +46,9 @@
           :joinperson="goodsInfo.join_total"
           :winperson="lotteryInfo.lucky_users"
           :goodsTitle="goodsInfo.title"
-          :preGoods="lotteryInfo.pre_goods"
+          :preGoods="lotteryInfo.pre_goods ? lotteryInfo.pre_goods : {}"
           :status="lotteryShow.status"
+          :wechatNum="goodsInfo.wechat"
           @showmodel="showmodel"
           @getGoods="getGoods"
         ></Loselottery>
@@ -151,11 +152,15 @@ export default {
         .then(res => {
           if (res.exchange_code) {
             this.drawCode = Number(res.exchange_code);
-            console.log(this.drawCode);
           }
         })
-        .catch(() => {
+        .catch(err => {
           // alert("网络开了小差,稍后再试哦！");
+          if (err.code == 0) {
+            this.$toast({
+              message: err.msg
+            });
+          }
         });
     },
     showmsg() {

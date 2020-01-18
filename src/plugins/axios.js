@@ -40,7 +40,7 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   function(response) {
     // Do something with response data
-    if (response.status == 200) {
+    if (response.status == 200 && response.data.code == 1) {
       return response.data.data;
     } else {
       return Promise.reject(response.data);
