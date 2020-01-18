@@ -147,25 +147,28 @@ export default {
       }, 3000);
     },
     showCom(status) {
+      this.lotteryShow = {
+        showDraw: false,
+        showMsg: false,
+        showWin: false,
+        showLose: false,
+        status: false
+      };
       switch (status) {
         case -2:
           this.lotteryShow.showDraw = true;
           break;
         case -1:
-          this.lotteryShow.showDraw = false;
           this.lotteryShow.showLose = true;
           this.lotteryShow.status = true;
           break;
         case 0:
-          this.lotteryShow.showDraw = false;
           this.lotteryShow.showMsg = true;
           break;
         case 1:
-          this.lotteryShow.showDraw = false;
           this.lotteryShow.showWin = true;
           break;
         case 2:
-          this.lotteryShow.showDraw = false;
           this.lotteryShow.showLose = true;
           break;
       }

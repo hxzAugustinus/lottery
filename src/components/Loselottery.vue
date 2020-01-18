@@ -21,7 +21,7 @@
       <img :src="preGoods.image" alt />
       <div class="nextLottery-content">
         <p>奖品：{{ preGoods.title }}</p>
-        <p @click="toLottery">{{ showTime ? preGoods.start_time + ' 开始抽奖' : '去抽奖' }}</p>
+        <p @click="toLottery">{{ showTime ? timestampTime(preGoods.start_time) + ' 开始抽奖' : '去抽奖' }}</p>
       </div>
     </div>
     <div class="winperson">
@@ -76,7 +76,7 @@ export default {
     },
     timecompare() {
       if (this.preGoods.start_time) {
-        new Date(this.preGoods.start_time) > new Date()
+        new Date(this.preGoods.start_time * 1000) > new Date()
           ? (this.showTime = true)
           : (this.showTime = false);
       }
@@ -98,6 +98,14 @@ export default {
           }
         });
       }
+    },
+    timestampTime(timestamp) {
+      var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      var M = date.getMonth() + 1 + "月";
+      var D = date.getDate() + "日";
+      var h = date.getHours() + ":";
+      var m = date.getMinutes();
+      return M + D + h + m;
     }
   }
 };
