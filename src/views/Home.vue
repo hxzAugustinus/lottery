@@ -203,7 +203,24 @@ export default {
         date.getMinutes() >= 10 ? date.getMinutes() : "0" + date.getMinutes();
       return M + D + h + m;
     },
+    init() {
+      this.drawCode = 0;
+      (this.showModel = false),
+        (this.drawFirst = true),
+        (this.lotteryShow = {
+          showDraw: true,
+          showMsg: false,
+          showWin: false,
+          showLose: false,
+          status: false
+        }),
+        (this.imgList = []),
+        (this.winperson = []),
+        (this.goodsInfo = {}),
+        (this.lottery_info = {});
+    },
     getGoods() {
+      this.init();
       return api.getGoods(this.$store.state.goodsId).then(res => {
         this.showCom(res.lottery_info.lottery_status);
         res.goods.end_time = this.timestampTime(res.goods.end_time);
