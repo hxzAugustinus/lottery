@@ -49,6 +49,7 @@
           :preGoods="lotteryInfo.pre_goods ? lotteryInfo.pre_goods : {}"
           :status="lotteryShow.status"
           :wechatNum="goodsInfo.wechat"
+          showtime="true"
           @showmodel="showmodel"
           @getGoods="getGoods"
         ></Loselottery>

@@ -24,7 +24,7 @@
         <p>奖品：{{ preGoods.title }}</p>
         <p @click="toLottery">
           {{
-          showTime
+          new Date(this.preGoods.start_time * 1000) > new Date()
           ? timestampTime(preGoods.start_time) + " 开始抽奖"
           : "去抽奖"
           }}
@@ -62,7 +62,11 @@ export default {
     preGoods: {
       type: Object
     },
-    wechatNum: {}
+    wechatNum: {},
+    showtime: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
