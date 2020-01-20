@@ -13,14 +13,16 @@ import wx from "jweixin-module";
 Vue.prototype.$wx = wx;
 Vue.prototype.$utils = utils;
 
-import { Tab, Tabs, Button, Loading, Overlay, Dialog, Toast } from "vant";
+import { Tab, Tabs, Button, Loading, Overlay, Dialog, Toast, Swipe, SwipeItem } from "vant";
 Vue.use(Tab)
   .use(Tabs)
   .use(Button)
   .use(Loading)
   .use(Overlay)
   .use(Dialog)
-  .use(Toast);
+  .use(Toast)
+  .use(Swipe)
+  .use(SwipeItem);
 
 import VueClipboard from "vue-clipboard2";
 Vue.use(VueClipboard);

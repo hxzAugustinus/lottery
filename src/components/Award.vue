@@ -5,7 +5,11 @@
  -->
 <template>
   <div class="award-cop">
-    <img :src="img" />
+    <van-swipe :autoplay="2000" indicator-color="white" class="swiper">
+      <van-swipe-item v-for="(item, index) in img" :key="index">
+        <img :src="item.image" alt />
+      </van-swipe-item>
+    </van-swipe>
     <p>奖品：{{ title }}</p>
   </div>
 </template>
@@ -25,9 +29,14 @@ export default {
   padding-bottom: 15px;
   background: #fff;
   border-radius: 10px;
-  img {
+  .swiper {
     width: 100%;
     height: 250px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  .swiper img {
+    width: 100%;
+    height: 100%;
     border-radius: 10px 10px 0px 0px;
   }
   p {
