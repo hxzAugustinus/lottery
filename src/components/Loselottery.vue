@@ -60,7 +60,6 @@ export default {
     winperson: {},
     drawCode: {},
     joinperson: {
-      type: Number
     },
     status: {},
     preGoods: {
