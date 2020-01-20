@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-01-10 09:48:14
  * @LastEditors  : hxz
- * @LastEditTime : 2020-01-18 21:18:52
+ * @LastEditTime : 2020-01-18 22:23:17
  -->
 <template>
   <div class="share-page">
@@ -116,10 +116,10 @@ export default {
         height: 3rem;
         border-radius: 50%;
         overflow: hidden;
+        border: 1px solid #ededed;
         > img {
           width: 100%;
           height: 100%;
-          border: 1px solid #ededed;
         }
       }
 
