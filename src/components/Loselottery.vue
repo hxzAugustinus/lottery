@@ -6,9 +6,9 @@
       <p>
         <img src="@/images/person.png" alt />
         {{
-          joinperson / 10000 > 1
-            ? (joinperson / 10000).toFixed(1) + "W"
-            : joinperson
+        joinperson / 10000 > 1
+        ? (joinperson / 10000).toFixed(1) + "W"
+        : joinperson
         }}
       </p>
     </div>
@@ -16,24 +16,22 @@
       <p>我的兑奖码</p>
       <p>{{ drawCode }}</p>
     </div>
-    <p class="msg" v-if="!preGoods.image">
-      活动已结束，请添加官方客服人员微信号【{{ wechatNum }}】，关注后续活动哦～
-    </p>
-    <p class="DrawMsg-content" v-if="preGoods.image">为您准备了如下福利</p>
-    <div class="nextLottery" v-if="preGoods.image">
-      <img :src="preGoods.image" alt />
+    <p class="msg" v-if="!preGoods.title">活动已结束，请添加官方客服人员微信号【{{ wechatNum }}】，关注后续活动哦～</p>
+    <p class="DrawMsg-content" v-if="preGoods.title">为您准备了如下福利</p>
+    <div class="nextLottery" v-if="preGoods.title">
+      <img :src="preGoods.images[0].image" alt />
       <div class="nextLottery-content">
         <p>奖品：{{ preGoods.title }}</p>
         <p @click="toLottery">
           {{
-            showTime
-              ? timestampTime(preGoods.start_time) + " 开始抽奖"
-              : "去抽奖"
+          showTime
+          ? timestampTime(preGoods.start_time) + " 开始抽奖"
+          : "去抽奖"
           }}
         </p>
       </div>
     </div>
-    <div class="winperson" :style="!preGoods.image ? 'margin-top:20px' : ''">
+    <div class="winperson" :style="!preGoods.image ? 'margin-top:20px' : ''" v-if="winperson[0]">
       <h1>中奖名单</h1>
       <div class="personCon" v-for="(item, index) in winperson" :key="index">
         <img
@@ -59,9 +57,7 @@ export default {
   props: {
     winperson: {},
     drawCode: {},
-    joinperson: {
-      type: Number
-    },
+    joinperson: {},
     status: {},
     preGoods: {
       type: Object
@@ -83,11 +79,9 @@ export default {
       this.$emit("showmodel", true);
     },
     timecompare() {
-      if (this.preGoods.start_time) {
-        new Date(this.preGoods.start_time * 1000) > new Date()
-          ? (this.showTime = true)
-          : (this.showTime = false);
-      }
+      new Date(this.preGoods.start_time * 1000) > new Date()
+        ? (this.showTime = true)
+        : (this.showTime = false);
     },
     toLottery() {
       let uid = this.$store.state.uid,
@@ -111,8 +105,10 @@ export default {
       var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
       var M = date.getMonth() + 1 + "月";
       var D = date.getDate() + "日";
-      var h = date.getHours() + ":";
-      var m = date.getMinutes();
+      var h =
+        (date.getHours() >= 10 ? date.getHours() : "0" + date.getHours()) + ":";
+      var m =
+        date.getMinutes() >= 10 ? date.getMinutes() : "0" + date.getMinutes();
       return M + D + h + m;
     }
   }

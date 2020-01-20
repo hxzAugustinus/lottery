@@ -7,7 +7,11 @@
   <div class="detail">
     <div class="detail-item">
       <div class="item-img">
-        <img :src="detailItem.image" alt />
+        <van-swipe :autoplay="2000" indicator-color="white" class="swiper">
+          <van-swipe-item v-for="(item, index) in detailItem.images" :key="index">
+            <img :src="item.image" alt />
+          </van-swipe-item>
+        </van-swipe>
         <div class="detail-state" v-if="detailItem.status == 0">
           <div>
             <span>待开奖</span>
@@ -68,11 +72,7 @@
       @showmodel="showmodel"
       style="margin-top:0px;"
     ></Loselottery>
-    <wx-modal
-      :showModel="showModel"
-      @showmodel="showmodel"
-      :wechatNum="detailItem.wechat"
-    ></wx-modal>
+    <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="detailItem.wechat"></wx-modal>
   </div>
 </template>
 
@@ -104,11 +104,7 @@ export default {
     api.getRecordById(this.$route.query.id).then(res => {
       res.record.end_time = this.timestampToTime(res.record.end_time);
       res.record.join_total = this.tow(res.record.join_total);
-      res.pre_goods != null
-        ? (res.pre_goods.start_time = this.timestampTime(
-            res.pre_goods.start_time
-          ))
-        : (res.pre_goods = {});
+      res.pre_goods != null ? "" : (res.pre_goods = {});
       res.lucky_users = this.nickname(res.lucky_users);
       this.detailItem = res.record;
       this.lucky_users = res.lucky_users;
@@ -127,9 +123,9 @@ export default {
           : date.getMonth() + 1) + "-";
       var D = date.getDate() + " ";
       var h =
-        (date.getHours() > 10 ? date.getHours() : "0" + date.getHours()) + ":";
+        (date.getHours() >= 10 ? date.getHours() : "0" + date.getHours()) + ":";
       var m =
-        date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
+        date.getMinutes() >= 10 ? date.getMinutes() : "0" + date.getMinutes();
       return Y + M + D + h + m;
     },
     timestampTime(timestamp) {
@@ -137,9 +133,9 @@ export default {
       var M = date.getMonth() + 1 + "月";
       var D = date.getDate() + "日";
       var h =
-        (date.getHours() > 10 ? date.getHours() : "0" + date.getHours()) + ":";
+        (date.getHours() >= 10 ? date.getHours() : "0" + date.getHours()) + ":";
       var m =
-        date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
+        date.getMinutes() >= 10 ? date.getMinutes() : "0" + date.getMinutes();
       return M + D + h + m;
     },
     nickname(name) {
@@ -199,6 +195,10 @@ export default {
       border-radius: 5px;
       overflow: hidden;
       position: relative;
+      .swiper {
+        width: 100%;
+        height: 100%;
+      }
       img {
         width: 100%;
         height: 100%;

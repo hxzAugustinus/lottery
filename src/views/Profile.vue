@@ -18,7 +18,7 @@
           @click="toDetail(item.id)"
         >
           <div class="item-img">
-            <img :src="item.image" alt />
+            <img :src="item.images[0].image" alt />
             <div class="lottery-state" v-if="item.status == 0">
               <div>
                 <span>待开奖</span>
@@ -92,8 +92,10 @@ export default {
           ? "0" + (date.getMonth() + 1)
           : date.getMonth() + 1) + "-";
       var D = date.getDate() + " ";
-      var h = date.getHours() + ":";
-      var m = date.getMinutes();
+      var h =
+        (date.getHours() >= 10 ? date.getHours() : "0" + date.getHours()) + ":";
+      var m =
+        date.getMinutes() >= 10 ? date.getMinutes() : "0" + date.getMinutes();
       return Y + M + D + h + m;
     }
   }

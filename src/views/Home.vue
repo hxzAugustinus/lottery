@@ -12,7 +12,7 @@
         <span></span>
       </div>
       <div class="contariner">
-        <award :img="goodsInfo.image" :title="goodsInfo.title"></award>
+        <award :img="goodsInfo.images" :title="goodsInfo.title"></award>
         <Raffle
           @close-modal="closeModal"
           :drawFirst="drawFirst"
@@ -62,7 +62,7 @@
             </p>
             <p>
               2.添加活动微信“ {{ goodsInfo.wechat }} ”可领取{{
-                goodsInfo.title
+              goodsInfo.title
               }}，共计{{ goodsInfo.stock }}份，先到先得，送完即止。
             </p>
             <p>3.中奖后请主动联系我们工作人员，根据中奖信息寄送礼品。</p>
@@ -70,11 +70,7 @@
           </div>
         </div>
       </div>
-      <wx-modal
-        :showModel="showModel"
-        @showmodel="showmodel"
-        :wechatNum="goodsInfo.wechat"
-      ></wx-modal>
+      <wx-modal :showModel="showModel" @showmodel="showmodel" :wechatNum="goodsInfo.wechat"></wx-modal>
     </div>
   </mescroll-vue>
 </template>
@@ -202,9 +198,9 @@ export default {
       var M = date.getMonth() + 1 + "月";
       var D = date.getDate() + "日";
       var h =
-        (date.getHours() > 10 ? date.getHours() : "0" + date.getHours()) + ":";
+        (date.getHours() >= 10 ? date.getHours() : "0" + date.getHours()) + ":";
       var m =
-        date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes();
+        date.getMinutes() >= 10 ? date.getMinutes() : "0" + date.getMinutes();
       return M + D + h + m;
     },
     getGoods() {
